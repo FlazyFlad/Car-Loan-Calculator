@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.about-section {
+    background-color: #f9f9f9;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.about-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.about-content .left img {
+    width: 100%;
+    max-width: 500px;
+    max-height: 400px;
+}
+
+.about-content .right img{
+    width: 100%; 
+    max-width: 500px; 
+}
+
+.reverse .about-content {
+    flex-direction: row-reverse;
+}
+
+.cta-button {
+    background-color: #FFC107;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #FFD54F;
+}
+
+.about-section:nth-child(even) {
+    background-color: #f9f9f9; /* Gray background for even sections */
+}
+
+.about-section:nth-child(odd) {
+    background-color: white; /* White background for odd sections */
+}

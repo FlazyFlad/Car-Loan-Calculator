@@ -1,0 +1,88 @@
+/* Add this CSS to style your HTML structure */
+
+/* Breadcrumb */
+.main-breadcrumb {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* User Card */
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* User Info List */
+.list-group-item {
+    border: none;
+    padding: 10px;
+}
+
+/* Progress Bars */
+.progress {
+    height: 10px;
+    margin-bottom: 10px;
+}
+
+/* Edit Button */
+.btn-info {
+    background-color: #17a2b8;
+    color: #fff;
+    border: none;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+}
+
+/* Profile Page Layout */
+.container {
+    margin-top: 30px;
+}
+
+.main-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-section {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.right-section {
+    flex: 2;
+}
+
+/* Profile Picture */
+.avatar {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+
+
+/* Additional Styling for Smaller Screens */
+@media (max-width: 768px) {
+    .main-body {
+        flex-direction: column;
+    }
+
+    .left-section,
+    .right-section {
+        margin-right: 0;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+}

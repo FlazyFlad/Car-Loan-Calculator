@@ -1,0 +1,54 @@
+.notfound-bg {
+    position: relative;
+    background-image: url('404.png'); /* Specify the path to your background image */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    z-index: 1; /* Ensure the content inside .not-found-container appears on top */
+}
+
+.notfound-bg::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Transparent black overlay with 50% opacity */
+    z-index: -1;
+}
+
+.not-found-container {
+    text-align: center;
+    z-index: 2; /* Ensure the .not-found-container content appears on top of the overlay */
+}
+
+.not-found-container h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.not-found-container p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    background-color: #FFC107;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #FFD54F;
+}

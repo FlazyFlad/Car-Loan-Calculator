@@ -1,0 +1,59 @@
+/* Hero Section Styles */
+.hero {
+    position: relative;
+    height: 100vh;
+    background-image: url('car.jpg'); /* Specify the path to your background image */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero-content {
+    background-color: rgba(255, 255, 255, 0.90); /* Semi-transparent white background */
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.hero-content h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: black !important; /* Text color */
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: black !important; /* Text color */
+}
+
+.hero-content a {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: black !important; /* Text color */
+}
+
+.ctaa-button {
+    background-color: #FFC107;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #FFC107;
+}
+
+.auto_input {
+    color: #000000;
+}
