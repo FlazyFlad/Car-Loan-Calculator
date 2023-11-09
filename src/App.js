@@ -9,9 +9,15 @@ import LoanCalculator from "./components/LoanCalculator/LoanCalculator";
 import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import Footer from "./components/Footer/Footer";
 import Profile from './components/Profile/Profile';
+import { ThemeContext } from './Context';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
+    const [theme, setTheme] = useState(true);
+
+    const handleChangeTheme = () => {
+        setTheme(prevTheme => !prevTheme);
+      };
 
     useEffect(() => {
         setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
@@ -23,6 +29,8 @@ function App() {
     };
 
     return (
+        <ThemeContext.Provider value={{ theme, handleChangeTheme }}>
+        
         <div className="app-container">
             <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
             <div className="app-spacer">
@@ -35,9 +43,10 @@ function App() {
                 <Route path="/profile" element={<Profile />}/>
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
-            <Footer />
             </div>
+            <Footer />
         </div>
+        </ThemeContext.Provider>
     );
 };
 

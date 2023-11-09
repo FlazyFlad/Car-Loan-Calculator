@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './AboutUs.css'
 
 import FirstImage from './1.png';
 import SecondImage from './2.png';
+import { ThemeContext } from '../../Context';
 
 const AboutUs = () => {
+    const { theme } = useContext(ThemeContext);
+
     return (
         <>
         
-        <div className="about-section">
+        <div className={`about-section ${theme ? 'dark-reverse' : 'light-reverse'}`}>
             <div className="about-content">
                 <div className="left">
                     <img src={FirstImage} alt="Some 1" />
@@ -24,7 +27,7 @@ const AboutUs = () => {
             </div>
         </div>
 
-        <div className="about-section reverse">
+        <div className={`about-section reverse ${theme ? 'dark-theme' : 'light-theme'}`}>
             <div className="about-content">
                 <div className="right">
                     <img src={SecondImage} alt="Some 2" />

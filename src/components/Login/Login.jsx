@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './Login.css';
 import { Link, useNavigate } from "react-router-dom";
+import { ThemeContext } from '../../Context';
 
 const Login = ({ setIsLoggedIn }) => {
     const navigate = useNavigate();
+    const { theme } = useContext(ThemeContext);
+
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -32,15 +35,15 @@ const Login = ({ setIsLoggedIn }) => {
 
     return (
         <>
-            <div className="login-container">
+            <div className={`login-container ${theme ? 'dark-theme' : 'light-theme'}`}>
                 <div className="form-container">
-                    <h2>Login to Your Account</h2> <br />
+                    <h2 className={`${theme ? 'light-text-color' : 'light-text-color'}`}>Login to Your Account</h2> <br />
                     <form id="login-form" className="form" onSubmit={handleSubmit}>
                         <input onChange={handleInput} type="email" name="email" placeholder="Email" value={formData.email} required />
                         <input onChange={handleInput} type="password" name='password' placeholder="Password" value={formData.password} required />
                         <button type="submit" className="ctaa-button">Login</button>
                         {error && <p className="error-message">{error}</p>}
-                        <p>Don't have an account?
+                        <p className={`${theme ? 'light-text-color' : 'light-text-color'}`}>Don't have an account?
                             <Link style={{ marginLeft: '5px' }} to="/register">
                                 Register
                             </Link>

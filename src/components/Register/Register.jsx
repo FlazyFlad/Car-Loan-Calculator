@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './Register.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../../Context';
 
 const Register = () => {
     const navigate = useNavigate();
+    const { theme } = useContext(ThemeContext);
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -35,9 +37,9 @@ const Register = () => {
 
     return (
         <>
-            <div className="register-container">
+            <div className={`register-container ${theme ? 'dark-theme' : 'light-theme'}`}>
                 <div className="form-container">
-                    <h2>Register for Your Car Loan</h2> <br />
+                    <h2 className={`${theme ? 'light-text-color' : 'light-text-color'}`}>Register for Your Car Loan</h2> <br />
                     <form id="register-form" className="form" onSubmit={handleSubmit}>
                         <input type="text" name="username" placeholder="Username" value={formData.username} onChange={handleInputChange} required />
                         <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} required />
@@ -45,7 +47,7 @@ const Register = () => {
                         <input type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleInputChange} required />
                         <button type="submit" className="ctaa-button">Register</button>
                         {error && <p className="error-message">{error}</p>}
-                        <p>Already have an account? 
+                        <p className={`${theme ? 'light-text-color' : 'light-text-color'}`}>Already have an account? 
                             <Link style={{ marginLeft: '5px' }} to="/login">
                                 Login
                             </Link>

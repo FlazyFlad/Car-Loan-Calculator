@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Profile.css'; // Import your CSS file for styling if needed
 import avatarUrl from './user-avatar.png';
+import { ThemeContext } from '../../Context';
 
 const Profile = () => {
+    const { theme } = useContext(ThemeContext);
+
     const user = {
         username: 'JohnDoe',
         email: 'johndoe@example.com',
@@ -10,7 +13,7 @@ const Profile = () => {
     };
 
     return (
-        <div className="profile-container">
+        <div className={`profile-container ${theme ? 'dark-theme' : 'light-theme'}`}>
             <div className="left-section">
                 {/* User Avatar */}
                 {/* <img src={user.avatarUrl} alt="User Avatar" className="avatar" /> */}

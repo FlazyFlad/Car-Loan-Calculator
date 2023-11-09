@@ -1,3 +1,8 @@
+:root {
+    --light-bg-color: rgba(255, 255, 255, 0.90);
+    --dark-bg-color: #151515;
+  }
+
 body {
     margin: 0;
     padding: 0;
@@ -109,14 +114,13 @@ li:hover {
 }
 
 .dropdown-content a {
-    color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1;
+    background-color: #FFC107;
 }
 
 .menu-bar {
@@ -124,3 +128,42 @@ li:hover {
 }
 
 /* DropDown end */
+
+/* Themes start*/
+
+  .light-theme {
+    background-color: #ffffff;
+    color: #151515;
+  }
+  
+  .dark-theme {
+    background-color: #151515;
+    color: #ffffff;
+  }
+
+  .light-text-color {
+    color: #151515;
+  }
+  
+  .dark-text-color {
+    color: #ffffff;
+  }
+
+  .light-bgc-color {
+    color: #151515;
+  }
+  
+  .dark-bgc-color {
+    color: #ffffff;
+  }
+  
+/* Themes end */
+
+/* Theme Icon start */
+
+.theme-icon {
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+/* Theme Icon end */

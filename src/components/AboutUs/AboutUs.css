@@ -5,7 +5,6 @@ body {
 }
 
 .about-section {
-    background-color: #f9f9f9;
     padding: 50px 0;
     text-align: center;
 }
@@ -46,10 +45,36 @@ body {
     background-color: #FFD54F;
 }
 
-.about-section:nth-child(even) {
-    background-color: #f9f9f9; /* Gray background for even sections */
+/* Themes start */
+
+.about-section > dark{
+    background-color: #151515;
+    color: white;
+}
+
+.about-section > light{
+    background-color: white;
+    color: #151515;
+}
+
+
+.dark-reverse {
+    background-color: #212121;
+    color: white;
+}
+
+.light-reverse {
+    background-color: #f9f9f9;
+    color: #151515;
+}
+
+
+/* Themes end */
+
+/* .about-section:nth-child(even) { 
+    background-color: #f9f9f9;
 }
 
 .about-section:nth-child(odd) {
-    background-color: white; /* White background for odd sections */
-}
+    background-color: white; 
+} */

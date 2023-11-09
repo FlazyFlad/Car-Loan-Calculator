@@ -1,14 +1,16 @@
-import React, { useState, useEffect }  from 'react';
+import React, { useState, useEffect, useContext}  from 'react';
 import { Link } from "react-router-dom";
 import './Header.css';
+import { ThemeContext } from "../../Context";
 
 const Header = ({ isLoggedIn, onLogout }) => {
+
+    const { theme, handleChangeTheme } = useContext(ThemeContext);
 
     const handleLogout = () => {
         localStorage.setItem('isLoggedIn', false);
         onLogout();
     };
-
 
     const [menuActive, setMenuActive] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
@@ -35,6 +37,8 @@ const Header = ({ isLoggedIn, onLogout }) => {
         setShowDropdown(!showDropdown);
     };
 
+    console.log(theme)
+
     const links = [
         { id: 1, text: 'Home', url: '/' },
         { id: 2, text: 'Loan Calculator', url: '/loan-calculator' },
@@ -49,16 +53,16 @@ const Header = ({ isLoggedIn, onLogout }) => {
 
     return (
         <>
-            <header>
+            <header className={theme ? 'dark-theme' : 'light-theme'}>
                 <div className="container-header">
                     <div className="logo">
-                        <Link to="/"> <i className="fa fa-car" aria-hidden="true"></i> Your Car <span>Loan</span></Link>
+                        <Link to="/" className={`${theme ? 'dark-theme' : 'light-theme'}`}> <i className="fa fa-car" aria-hidden="true"></i> Your Car <span>Loan</span></Link>
                     </div>
 
                 <div className="dropdown">
                 {menuActive && (
                         <div className='menu-bar'>
-                        <i className="fa-solid fa-bars" onClick={handleMenuToggle}></i>
+                            <i className="fa-solid fa-bars" onClick={handleMenuToggle}></i>
                         </div>
                 )}
                 {showDropdown && menuActive && (
@@ -67,7 +71,7 @@ const Header = ({ isLoggedIn, onLogout }) => {
                         <ul>
                             {links.map(link => (
                                 <li key={link.id}>
-                                    <Link to={link.url} onClick={handleMenuToggle}>
+                                    <Link to={link.url} onClick={handleMenuToggle} className={`${theme ? 'dark-theme' : 'light-theme'}`}>
                                         {link.text}
                                     </Link>
                                 </li>
@@ -87,11 +91,17 @@ const Header = ({ isLoggedIn, onLogout }) => {
                             <>
                             {links.map(link => (
                                 <li key={link.id}>
-                                    <Link to={link.url}>
+                                    <Link to={link.url} className={`${theme ? 'dark-theme' : 'light-theme'}`}>
                                         {link.text}
                                     </Link>
                                 </li>
                             ))}
+                                {!theme && (
+                                <i class="fa fa-moon-o theme-icon" onClick={handleChangeTheme} aria-hidden="true"></i>
+                                )}
+                                {theme && (
+                                <i class="fa fa-sun-o theme-icon" onClick={handleChangeTheme} aria-hidden="true"></i>
+                                )}
                             </>
                         )}
                             {isLoggedIn ? (
@@ -106,7 +116,7 @@ const Header = ({ isLoggedIn, onLogout }) => {
                                 </>
                             ) : (
                                 <li>
-                                    <Link className="act-a-link" to="/register">
+                                    <Link className={`act-a-link ${theme ? 'dark-theme' : 'light-theme'}`} to="/register">
                                         <button className="act-link">
                                             Sign Up
                                         </button>
