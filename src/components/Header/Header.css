@@ -150,11 +150,11 @@ li:hover {
   }
 
   .light-bgc-color {
-    color: #151515;
+    background-color: #151515;
   }
   
   .dark-bgc-color {
-    color: #ffffff;
+    background-color: #e5e7eb;
   }
   
 /* Themes end */
