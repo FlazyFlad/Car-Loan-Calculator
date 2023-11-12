@@ -33,7 +33,7 @@ function App() {
         
         <div className="app-container">
             <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-            <div className="app-spacer">
+            <div className={`app-spacer ${theme ? 'light-bgc-color' : 'dark-bgc-color'}`}>
             <Routes>
                 <Route path="/" element={<HeroSection />}/>
                 <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />}/>

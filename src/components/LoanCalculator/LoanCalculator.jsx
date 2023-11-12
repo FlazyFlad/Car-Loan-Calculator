@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useMemo, useEffect, lazy, Suspense, useContext} from 'react';
 import './LoanCalculator.css';
 import CarCost from "./CarCost";
 import TitleText from "./TitleText";
@@ -9,8 +9,12 @@ import RateAndLoan from "./RateAndLoad";
 import PaymentMethod from "./PaymentMethod";
 import CarLoanEstimate from "./CarLoanEstimate";
 import ApprovalButton from "./ApprovalButton";
+import { ThemeContext } from '../../Context';
 
 const LoanCalculator = () => {
+    
+    const { theme } = useContext(ThemeContext);
+
     const [loading, setLoading] = useState(true);
     const [carValue, setCarValue] = useState(12000000);
     const [inputValue, setInputValue] = useState(carValue.toString());
@@ -75,6 +79,7 @@ const LoanCalculator = () => {
     return (
         <>
             <div className="calculator-container flex flex-col gap-4 items-center lg:w-3/5 lg:mx-auto sm:w-full">
+        <div className="calculator-container" >
             <TitleText
                 titleText="Car Loan Calculator"
                 subTitleText="Calculate your monthly car repayments as well as total payment and total interest based on vehicle price."
@@ -133,7 +138,9 @@ const LoanCalculator = () => {
 
             </div>
         </div>
+        </div>
         </>
+
     );
 }
 
