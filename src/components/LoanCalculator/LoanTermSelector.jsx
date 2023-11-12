@@ -12,7 +12,7 @@ const LoanTermSelector = ({setSelectedTerm, selectedTerm}) => {
     ];
 
     return (
-        <div className="bg-gray-800 p-6 rounded-lg h-auto w-full flex-grow">
+        <div className="bg-gray-800 p-6 rounded-lg h-auto sm:w-full   lg:w-full">
             <div className="flex justify-between mb-4">
                 <p className="text-white text-lg">Loan Term</p>
                 <div className="flex">

@@ -74,62 +74,63 @@ const LoanCalculator = () => {
 
     return (
         <>
-        <div className="calculator-container">
+            <div className="calculator-container flex flex-col gap-4 items-center lg:w-3/5 lg:mx-auto sm:w-full">
             <TitleText
                 titleText="Car Loan Calculator"
                 subTitleText="Calculate your monthly car repayments as well as total payment and total interest based on vehicle price."
             />
-            <div className="calculator flex gap-8 flex-row md:flex-row mt-12">
-                <CarCost
-                    value={formattedCarValue}
-                    onChange={(e) => handleCarCostChange(e)}
-                    circValue={carValue}
-                    circOnchange={(value) => setCarValue(value)}
-                    formatNumber={formatNumber}
-                />
-                <InitialPayment
-                    paymentValue={initialPaymentValue}
-                    handlePaymentChange={(e) => {
-                        const newPaymentValue = Number(e.target.value.replace(/,/g, '').replace(/\s+/g, ''));
-                        setCarValue(newPaymentValue / 0.1);
-                    }}
-                    circleValue={formatNumber(carValue * 0.1)}
-                    circleOnChange={(value) => setCarValue(value / 0.1)}
-                    formatNumber={formatNumber}
-                />
-            </div>
-            <div className="items-center flex gap-8 flex-row md:flex-row mt-2 justify-between">
-                <div className="flex flex-col w-full">
-                    <LoanTermSelector
-                        setSelectedTerm={setSelectedTerm}
-                        selectedTerm={selectedTerm}
+                <div className="calculator flex flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
+                    <CarCost
+                        value={formattedCarValue}
+                        onChange={(e) => handleCarCostChange(e)}
+                        circValue={carValue}
+                        circOnchange={(value) => setCarValue(value)}
+                        formatNumber={formatNumber}
+                    />
+                    <InitialPayment
+                        paymentValue={initialPaymentValue}
+                        handlePaymentChange={(e) => {
+                            const newPaymentValue = Number(e.target.value.replace(/,/g, '').replace(/\s+/g, ''));
+                            setCarValue(newPaymentValue / 0.1);
+                        }}
+                        circleValue={formatNumber(carValue * 0.1)}
+                        circleOnChange={(value) => setCarValue(value / 0.1)}
+                        formatNumber={formatNumber}
                     />
                 </div>
-                <div className="flex flex-col gap-2 w-full">
-                    <CarChoice
-                        selectedCar={selectedCar}
-                        setSelectedCar={setSelectedCar}
-                    />
-                    <RateAndLoan isUsed={false} />
+                <div className="flex flex-col gap-4 items-center mt-2 lg:flex-row lg:gap-8 lg:items-start lg:mt-8 w-full">
+                    <div className="flex flex-col sm:w-full">
+                        <LoanTermSelector
+                            setSelectedTerm={setSelectedTerm}
+                            selectedTerm={selectedTerm}
+                        />
+                    </div>
+                        <div className="flex flex-wrap justify-between gap-8 mt-2 w-full">
+                        <CarChoice
+                            selectedCar={selectedCar}
+                            setSelectedCar={setSelectedCar}
+                        />
+                        <RateAndLoan isUsed={false} />
+                    </div>
                 </div>
-            </div>
 
-            <div className="flex justify-center gap-8 items-start mt-2">
-                <div className="flex flex-col gap-2 w-full">
-                    <PaymentMethod
-                        selectedMethod={selectedMethod}
-                        setSelectedMethod={setSelectedMethod}
-                    />
-                    <ApprovalButton handleLogs={handleLogs} />
-                </div>
-                <div className="w-full">
-                    <CarLoanEstimate
-                        monthlyPayment={monthlyPayment}
-                        interestRate={interestRate}
-                        fullRate={fullRate}
-                        otherBanksPayment={otherBanksPayment}
-                    />
-                </div>
+                <div className="flex flex-col gap-4 items-center mt-2 lg:flex-row lg:gap-8 lg:items-start lg:mt-8 w-full">
+                    <div className="flex flex-col w-full mt-2 lg:mt-0 lg:w-1/2">
+                        <PaymentMethod
+                            selectedMethod={selectedMethod}
+                            setSelectedMethod={setSelectedMethod}
+                        />
+                    </div>
+                    <div className="flex flex-col w-full lg:w-1/2 gap-4">
+                        <CarLoanEstimate
+                            monthlyPayment={monthlyPayment}
+                            interestRate={interestRate}
+                            fullRate={fullRate}
+                            otherBanksPayment={otherBanksPayment}
+                        />
+                        <ApprovalButton handleLogs={handleLogs} />
+                    </div>
+
             </div>
         </div>
         </>

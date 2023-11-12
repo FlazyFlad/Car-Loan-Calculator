@@ -4,10 +4,10 @@ body {
 
 .calculator-container {
     padding: 20px;
-    width: 1024px;
     margin: 0 auto;
     text-align: center;
 }
+
 
 .input-group {
     display: flex;

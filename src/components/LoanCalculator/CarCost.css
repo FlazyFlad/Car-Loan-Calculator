@@ -1,10 +1,10 @@
 .car-cost {
-    width: 100%;
     padding: 20px;
     background: linear-gradient(90deg, #384760 0%, #E0E0E0 100%);
     color: #fff;
     border-radius: 8px;
 }
+
 
 h1 {
     font-size: 24px;
@@ -30,6 +30,15 @@ input[type="range"] {
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .slider-input-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
 }
 
 input[type="number"] {
