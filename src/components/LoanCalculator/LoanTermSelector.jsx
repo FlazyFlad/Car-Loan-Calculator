@@ -15,12 +15,12 @@ const LoanTermSelector = ({setSelectedTerm, selectedTerm}) => {
         <div className="bg-gray-800 p-6 rounded-lg h-auto sm:w-full   lg:w-full">
             <div className="flex justify-between mb-4">
                 <p className="text-white text-lg">Loan Term</p>
-                <div className="flex">
+                <div className="flex gap-4">
                     <button className="text-white p-2">
-                        <HiArrowSmallLeft className="w-5 h-5" />
+                        <HiArrowSmallLeft className="w-12 h-5" />
                     </button>
                     <button className="text-white p-2">
-                        <HiArrowSmallRight className="w-5 h-5" />
+                        <HiArrowSmallRight className="w-12 h-5" />
                     </button>
                 </div>
             </div>
