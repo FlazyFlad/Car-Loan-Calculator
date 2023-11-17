@@ -1,38 +1,43 @@
-/* Add this CSS to style your HTML structure */
-
-
-.left-section {
-    flex: 1;
-    margin-right: 20px;
+.form-control:focus {
+    box-shadow: none;
+    border-color: #FFC107;
 }
 
-.right-section {
-    flex: 2;
+.container{
+    margin-left: 9%;
 }
 
-/* Profile Picture */
-.avatar {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 20px;
+.profile-button {
+    background: #FFC107;
+    box-shadow: none;
+    border: none
 }
 
+.profile-button:hover {
+    background: #FFC107;
+}
 
+.profile-button:focus {
+    background: #FFC107;
+    box-shadow: none
+}
 
-/* Additional Styling for Smaller Screens */
-@media (max-width: 768px) {
-    .main-body {
-        flex-direction: column;
-    }
+.profile-button:active {
+    background: #FFC107;
+    box-shadow: none
+}
 
-    .left-section,
-    .right-section {
-        margin-right: 0;
-    }
+.back:hover {
+    color: #FFC107;
+    cursor: pointer
+}
 
-    .card {
-        margin-bottom: 20px;
-    }
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #FFC107;
+    cursor: pointer;
+    border: solid 1px #FFC107;
 }

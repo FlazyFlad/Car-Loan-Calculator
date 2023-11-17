@@ -10,6 +10,7 @@ import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import Footer from "./components/Footer/Footer";
 import Profile from './components/Profile/Profile';
 import { ThemeContext } from './Context';
+import './App.css'
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');

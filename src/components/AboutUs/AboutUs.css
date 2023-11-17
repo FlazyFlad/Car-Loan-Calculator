@@ -1,39 +1,35 @@
-body {
+.a-container {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
 }
 
-.about-section {
-    padding: 50px 0;
-    text-align: center;
-}
-
-.about-content {
+.about-section .about-content {
     display: flex;
-    justify-content: space-around;
     align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
-.about-content .left img {
-    width: 100%;
-    max-width: 500px;
-    max-height: 400px;
+.a-col{
+    min-height: 45vh;
+    padding: 10vh 10vw;
 }
 
-.about-content .right img{
-    width: 100%; 
-    max-width: 500px; 
+
+.a-par{
+    padding-bottom: 5vh;
 }
 
-.reverse .about-content {
-    flex-direction: row-reverse;
+@media (max-width: 768px) {
+    .about-section .about-content .left,
+    .about-section .about-content .right {
+        margin: 15px 0;
+    }
 }
 
 .cta-button {
     background-color: #FFC107;
     color: white;
-    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     text-decoration: none;

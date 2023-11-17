@@ -17,7 +17,7 @@ const Header = ({ isLoggedIn, onLogout }) => {
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 768) {
+            if (window.innerWidth < 812) {
                 setMenuActive(true);
             } else {
                 setMenuActive(false);
@@ -36,8 +36,6 @@ const Header = ({ isLoggedIn, onLogout }) => {
     const handleMenuToggle = () => {
         setShowDropdown(!showDropdown);
     };
-
-    console.log(theme)
 
     const links = [
         { id: 1, text: 'Home', url: '/' },

@@ -39,8 +39,8 @@ const Login = ({ setIsLoggedIn }) => {
                 <div className="form-container">
                     <h2 className={`${theme ? 'light-text-color' : 'light-text-color'}`}>Login to Your Account</h2> <br />
                     <form id="login-form" className="form" onSubmit={handleSubmit}>
-                        <input onChange={handleInput} type="email" name="email" placeholder="Email" value={formData.email} required />
-                        <input onChange={handleInput} type="password" name='password' placeholder="Password" value={formData.password} required />
+                        <input className={`${theme ? 'light-text-color' : 'light-text-color'}`} onChange={handleInput} type="email" name="email" placeholder="Email" value={formData.email} required />
+                        <input className={`${theme ? 'light-text-color' : 'light-text-color'}`} onChange={handleInput} type="password" name='password' placeholder="Password" value={formData.password} required />
                         <button type="submit" className="ctaa-button">Login</button>
                         {error && <p className="error-message">{error}</p>}
                         <p className={`${theme ? 'light-text-color' : 'light-text-color'}`}>Don't have an account?

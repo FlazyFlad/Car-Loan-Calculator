@@ -41,10 +41,10 @@ const Register = () => {
                 <div className="form-container">
                     <h2 className={`${theme ? 'light-text-color' : 'light-text-color'}`}>Register for Your Car Loan</h2> <br />
                     <form id="register-form" className="form" onSubmit={handleSubmit}>
-                        <input type="text" name="username" placeholder="Username" value={formData.username} onChange={handleInputChange} required />
-                        <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} required />
-                        <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleInputChange} required />
-                        <input type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleInputChange} required />
+                        <input className={`${theme ? 'light-text-color' : 'light-text-color'}`}  type="text" name="username" placeholder="Username" value={formData.username} onChange={handleInputChange} required />
+                        <input className={`${theme ? 'light-text-color' : 'light-text-color'}`}  type="email" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} required />
+                        <input className={`${theme ? 'light-text-color' : 'light-text-color'}`}  type="password" name="password" placeholder="Password" value={formData.password} onChange={handleInputChange} required />
+                        <input className={`${theme ? 'light-text-color' : 'light-text-color'}`}  type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleInputChange} required />
                         <button type="submit" className="ctaa-button">Register</button>
                         {error && <p className="error-message">{error}</p>}
                         <p className={`${theme ? 'light-text-color' : 'light-text-color'}`}>Already have an account? 
