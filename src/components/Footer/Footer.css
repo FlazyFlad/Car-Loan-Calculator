@@ -6,6 +6,7 @@ footer {
     flex: 1;
     margin-top: auto;
     bottom: 0;
+    border-top: 1px solid #333;
 }
 
 .container {
