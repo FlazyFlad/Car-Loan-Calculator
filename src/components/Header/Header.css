@@ -41,6 +41,12 @@ header {
     cursor: pointer;
 }
 
+.logo a:hover {
+    color: #FFC107;
+    cursor: pointer;
+    text-decoration: none;
+}
+
 
 .act-link {
     font-size: 19px;
