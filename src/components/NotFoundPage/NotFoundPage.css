@@ -1,6 +1,5 @@
 .notfound-bg {
-    position: relative;
-    background-image: url('404.png'); /* Specify the path to your background image */
+    position: relative; /* Specify the path to your background image */
     background-size: cover;
     background-position: center;
     color: white;
