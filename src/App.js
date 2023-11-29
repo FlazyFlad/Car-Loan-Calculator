@@ -11,6 +11,8 @@ import Footer from "./components/Footer/Footer";
 import Profile from './components/Profile/Profile';
 import { ThemeContext } from './Context';
 import './App.css'
+import {Provider} from "react-redux";
+import store from "./store";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
@@ -31,22 +33,23 @@ function App() {
 
     return (
         <ThemeContext.Provider value={{ theme, handleChangeTheme }}>
-        
-        <div className="app-container">
-            <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-            <div className={`app-spacer ${theme ? 'light-bgc-color' : 'dark-bgc-color'}`}>
-            <Routes>
-                <Route path="/" element={<HeroSection />}/>
-                <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />}/>
-                <Route path="/register" element={<Register />}/>
-                <Route path="/about-us" element={<AboutUs />}/>
-                <Route path="/loan-calculator" element={<LoanCalculator />}/>
-                <Route path="/profile" element={<Profile />}/>
-                <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-            </div>
-            <Footer />
-        </div>
+            <Provider store={store}>
+                <div className="app-container">
+                    <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+                    <div className={`app-spacer ${theme ? 'light-bgc-color' : 'dark-bgc-color'}`}>
+                    <Routes>
+                        <Route path="/" element={<HeroSection />}/>
+                        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />}/>
+                        <Route path="/register" element={<Register />}/>
+                        <Route path="/about-us" element={<AboutUs />}/>
+                        <Route path="/loan-calculator" element={<LoanCalculator />}/>
+                        <Route path="/profile" element={<Profile />}/>
+                        <Route path="*" element={<NotFoundPage />} />
+                    </Routes>
+                    </div>
+                    <Footer />
+                </div>
+            </Provider>
         </ThemeContext.Provider>
     );
 };

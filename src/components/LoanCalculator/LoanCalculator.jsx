@@ -10,8 +10,12 @@ import PaymentMethod from "./PaymentMethod";
 import CarLoanEstimate from "./CarLoanEstimate";
 import ApprovalButton from "./ApprovalButton";
 import { ThemeContext } from '../../Context';
+import {useDispatch, useSelector} from "react-redux";
+import {getCars} from "../../actions/getCarsAction";
 
 const LoanCalculator = () => {
+
+    const dispatch = useDispatch();
     
     const { theme } = useContext(ThemeContext);
 
@@ -25,8 +29,11 @@ const LoanCalculator = () => {
     const [interestRate, setInterestRate] = useState(27);
     const [fullRate, setFullRate] = useState(30.6);
     const [otherBanksPayment, setOtherBanksPayment] = useState(38330);
-    
 
+
+    const cars = useSelector((state) => state.cars?.cars);
+
+    console.log("cars:", cars);
 
     const separateThousands = (value) => {
         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -65,82 +72,85 @@ const LoanCalculator = () => {
     }
 
     useEffect(() => {
-        // Simulating an API call with setTimeout
-        const fetchData = () => {
-            setTimeout(() => {
-                setLoading(false);
-            }, 2000); // Simulating 2 seconds loading time
-        };
-
-        fetchData();
-    }, []); // Empty dependency array ensures this effect runs once after the initial render
+       dispatch(getCars())
+    }, [dispatch]);
 
 
     return (
         <>
-            <div className="calculator-container flex flex-col gap-4 items-center lg:w-3/5 lg:mx-auto sm:w-full">
-        <div className="calculator-container" >
             <TitleText
                 titleText="Car Loan Calculator"
                 subTitleText="Calculate your monthly car repayments as well as total payment and total interest based on vehicle price."
             />
-                <div className="calculator flex flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
-                    <CarCost
-                        value={formattedCarValue}
-                        onChange={(e) => handleCarCostChange(e)}
-                        circValue={carValue}
-                        circOnchange={(value) => setCarValue(value)}
-                        formatNumber={formatNumber}
-                    />
-                    <InitialPayment
-                        paymentValue={initialPaymentValue}
-                        handlePaymentChange={(e) => {
-                            const newPaymentValue = Number(e.target.value.replace(/,/g, '').replace(/\s+/g, ''));
-                            setCarValue(newPaymentValue / 0.1);
-                        }}
-                        circleValue={formatNumber(carValue * 0.1)}
-                        circleOnChange={(value) => setCarValue(value / 0.1)}
-                        formatNumber={formatNumber}
-                    />
-                </div>
-                <div className="flex flex-col gap-4 items-center mt-2 lg:flex-row lg:gap-8 lg:items-start lg:mt-8 w-full">
-                    <div className="flex flex-col sm:w-full">
-                        <LoanTermSelector
-                            setSelectedTerm={setSelectedTerm}
-                            selectedTerm={selectedTerm}
-                        />
-                    </div>
-                        <div className="flex flex-wrap justify-between gap-8 mt-2 w-full">
-                        <CarChoice
-                            selectedCar={selectedCar}
-                            setSelectedCar={setSelectedCar}
-                        />
-                        <RateAndLoan isUsed={false} />
-                    </div>
-                </div>
+        <div className='lg:grid lg:grid-cols-12 lg:gap-8 lg:justify-center lg:items-center sm:grid-cols-1 sm:gap-4 sm:justify-center sm:items-center border-gray-600 border-2 rounded-md'>
+            <div className="calculator-container col-span-12 lg:col-span-4 border-gray-600 border-2 rounded-md">
+                <div className="calculator-container" >
+                        <div className="calculator flex flex-col gap-4 items-center lg:gap-8 lg:items-start w-full">
+                            <CarCost
+                                value={formattedCarValue}
+                                onChange={(e) => handleCarCostChange(e)}
+                                circValue={carValue}
+                                circOnchange={(value) => setCarValue(value)}
+                                formatNumber={formatNumber}
+                            />
+                            <InitialPayment
+                                paymentValue={initialPaymentValue}
+                                handlePaymentChange={(e) => {
+                                    const newPaymentValue = Number(e.target.value.replace(/,/g, '').replace(/\s+/g, ''));
+                                    setCarValue(newPaymentValue / 0.1);
+                                }}
+                                circleValue={formatNumber(carValue * 0.1)}
+                                circleOnChange={(value) => setCarValue(value / 0.1)}
+                                formatNumber={formatNumber}
+                            />
+                        </div>
+                        <div className="flex flex-col gap-4 items-center mt-2 lg:gap-8 lg:items-start lg:mt-8 w-full">
+                            <div className="flex flex-col sm:w-full">
+                                <LoanTermSelector
+                                    setSelectedTerm={setSelectedTerm}
+                                    selectedTerm={selectedTerm}
+                                />
+                            </div>
+                                <div className="flex flex-wrap justify-between gap-8 mt-2 w-full">
+                                <CarChoice
+                                    selectedCar={selectedCar}
+                                    setSelectedCar={setSelectedCar}
+                                />
+                                <RateAndLoan isUsed={false} />
+                            </div>
+                        </div>
 
-                <div className="flex flex-col gap-4 items-center mt-2 lg:flex-row lg:gap-8 lg:items-start lg:mt-8 w-full">
-                    <div className="flex flex-col w-full mt-2 lg:mt-0 lg:w-1/2">
-                        <PaymentMethod
-                            selectedMethod={selectedMethod}
-                            setSelectedMethod={setSelectedMethod}
-                        />
-                    </div>
-                    <div className="flex flex-col w-full lg:w-1/2 gap-4">
-                        <CarLoanEstimate
-                            monthlyPayment={monthlyPayment}
-                            interestRate={interestRate}
-                            fullRate={fullRate}
-                            otherBanksPayment={otherBanksPayment}
-                        />
-                        <ApprovalButton handleLogs={handleLogs} />
-                    </div>
+                        <div className="flex flex-col gap-4 items-center mt-2 lg:gap-8 lg:items-start lg:mt-8 w-full">
+                            <div className="flex flex-col w-full mt-2 lg:mt-0">
+                                <PaymentMethod
+                                    selectedMethod={selectedMethod}
+                                    setSelectedMethod={setSelectedMethod}
+                                />
+                            </div>
+                            <div className="flex flex-col w-full gap-4">
+                                <CarLoanEstimate
+                                    monthlyPayment={monthlyPayment}
+                                    interestRate={interestRate}
+                                    fullRate={fullRate}
+                                    otherBanksPayment={otherBanksPayment}
+                                />
+                                <ApprovalButton handleLogs={handleLogs} />
+                            </div>
 
+                    </div>
+                </div>
+            </div>
+            <div className="col-span-12 lg:col-span-8 border-gray-600 border-2 rounded-md">
+                <div className="flex flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
+                    <Suspense fallback={<div>Loading...</div>}>
+                    </Suspense>
+                    <p className='text-red-500'>Something to be displayed here</p>
+                    <Suspense fallback={<div>Loading...</div>}>
+                    </Suspense>
+                </div>
             </div>
         </div>
-        </div>
-        </>
-
+</>
     );
 }
 

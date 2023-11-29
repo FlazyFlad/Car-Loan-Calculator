@@ -6,7 +6,7 @@ const InitialPayment = ({ paymentValue, handlePaymentChange, circleValue, circle
     const displayValue = formatNumber(circleValue);
 
     return (
-        <div className="car-cost lg:w-1/2 flex flex-col gap-4 items-center sm:flex-row sm:gap-8 sm:items-start sm:w-full">
+        <div className="car-cost flex flex-col gap-4 items-center sm:flex-row sm:gap-8 sm:items-start sm:w-full">
             <div className="slider-input-wrapper sm:w-full sm:flex-1 sm:gap-24">
                 <div className="slider-input-labels sm:w-full">
                     <h1 className='text-red font-bold text-2xl sm:text-left'>Initial Payment</h1>
