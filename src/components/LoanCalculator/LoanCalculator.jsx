@@ -12,6 +12,7 @@ import ApprovalButton from "./ApprovalButton";
 import { ThemeContext } from '../../Context';
 import {useDispatch, useSelector} from "react-redux";
 import {getCars} from "../../actions/getCarsAction";
+import CarCard from "../carCard/CarCard";
 
 const LoanCalculator = () => {
 
@@ -33,7 +34,7 @@ const LoanCalculator = () => {
 
     const cars = useSelector((state) => state.cars?.cars);
 
-    console.log("cars:", cars);
+    console.log("cars:", JSON.stringify(cars));
 
     const separateThousands = (value) => {
         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -142,11 +143,7 @@ const LoanCalculator = () => {
             </div>
             <div className="col-span-12 lg:col-span-8 border-gray-600 border-2 rounded-md">
                 <div className="flex flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
-                    <Suspense fallback={<div>Loading...</div>}>
-                    </Suspense>
-                    <p className='text-red-500'>Something to be displayed here</p>
-                    <Suspense fallback={<div>Loading...</div>}>
-                    </Suspense>
+                   <CarCard />
                 </div>
             </div>
         </div>
