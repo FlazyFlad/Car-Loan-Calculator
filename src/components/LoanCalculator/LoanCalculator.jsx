@@ -83,8 +83,8 @@ const LoanCalculator = () => {
                 titleText="Car Loan Calculator"
                 subTitleText="Calculate your monthly car repayments as well as total payment and total interest based on vehicle price."
             />
-        <div className='lg:grid lg:grid-cols-12 lg:gap-8 lg:justify-center lg:items-center sm:grid-cols-1 sm:gap-4 sm:justify-center sm:items-center border-gray-600 border-2 rounded-md'>
-            <div className="calculator-container col-span-12 lg:col-span-4 border-gray-600 border-2 rounded-md">
+        <div className='lg:grid lg:grid-cols-12 lg:gap-8 lg:justify-center lg:items-center sm:grid-cols-1 sm:gap-4 sm:justify-center sm:items-center'>
+            <div className="calculator-container col-span-12 lg:col-span-4">
                 <div className="calculator-container" >
                         <div className="calculator flex flex-col gap-4 items-center lg:gap-8 lg:items-start w-full">
                             <CarCost
@@ -141,8 +141,8 @@ const LoanCalculator = () => {
                     </div>
                 </div>
             </div>
-            <div className="col-span-12 lg:col-span-8 border-gray-600 border-2 rounded-md">
-                <div className="flex flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
+            <div className="col-span-12 lg:col-span-8 bg-inherit">
+                <div className="flex bg-inherit flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
                    <CarCard />
                 </div>
             </div>
