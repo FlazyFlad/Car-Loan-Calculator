@@ -83,8 +83,8 @@ const LoanCalculator = () => {
                 titleText="Car Loan Calculator"
                 subTitleText="Calculate your monthly car repayments as well as total payment and total interest based on vehicle price."
             />
-        <div className='lg:grid lg:grid-cols-12 lg:gap-8 lg:justify-center lg:items-center sm:grid-cols-1 sm:gap-4 sm:justify-center sm:items-center'>
-            <div className="calculator-container col-span-12 lg:col-span-4">
+            <div className='lg:grid lg:grid-cols-12 lg:gap-24 lg:justify-center lg:items-center sm:grid-cols-1 sm:gap-4 sm:justify-center sm:items-center'>
+                <div className="calculator-container col-span-12 lg:col-span-3 lg:align-self">
                 <div className="calculator-container" >
                         <div className="calculator flex flex-col gap-4 items-center lg:gap-8 lg:items-start w-full">
                             <CarCost
@@ -141,9 +141,16 @@ const LoanCalculator = () => {
                     </div>
                 </div>
             </div>
-            <div className="col-span-12 lg:col-span-8 bg-inherit">
+            <div className="col-span-12 lg:col-span-6 bg-inherit">
                 <div className="flex bg-inherit flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
                    <CarCard />
+                </div>
+            </div>
+            <div className="col-span-12 lg:col-span-2 bg-inherit">
+                <div className="flex bg-inherit flex-col gap-4 items-start lg:items-start w-full">
+                    <p className="text-center text-xl lg:text-left lg:align-top">
+                        Filters here
+                    </p>
                 </div>
             </div>
         </div>

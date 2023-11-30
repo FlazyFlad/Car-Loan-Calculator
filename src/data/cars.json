@@ -1,0 +1,80 @@
+
+[
+    {
+    "id": 15,
+    "name": "Hyundai Kona",
+    "description": "The Kona is an appealing pick among subcompact SUVs thanks to a strong optional turbocharged engine, sharp handling, and lots of features for the money. Hyundai's powertrain updates have further improved the driving experience, though it still has some drivability issues. A few shortcomings keep it from being an easy winner, such as a smaller-than-average cargo capacity and a plasticky cabin.",
+    "price": 23475,
+    "mileage": "35200 miles",
+    "fuel": "Gasoline",
+    "picture": "https://cale.pythonanywhere.com/media/2022_hyundai_kona_4dr-suv_limited_f_oem_1_1600x1067.jpg",
+    "time_create": "2023-11-21T14:39:43.316229Z",
+    "time_update": "2023-11-21T14:39:43.316229Z"
+    },
+    {
+        "id": 16,
+        "name": "Tata Indica",
+        "description": "The Indica is a compact SUV with a 4-cylinder engine and a 4-door configuration. It has a 5-speed manual transmission and a 5-speed automatic transmission.",
+        "price": 12345,
+        "mileage": "25000 miles",
+        "fuel": "Gasoline",
+        "picture": "https://images.unsplash.com/photo-1599425997288-54a8b9d1b7b5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dGF0YSUyMGluZGljYXRpb258ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
+        "time_create": "2023-11-21T14:39:43.316229Z",
+        "time_update": "2023-11-21T14:39:43.316229Z"
+    },
+    {
+        "id": 17,
+        "name": "Hyundai Elantra",
+        "description": "The Elantra is a compact SUV with a 4-cylinder engine and a 4-door configuration. It has a 5-speed manual transmission and a 5-speed automatic transmission. The Elantra is available in two trim levels: the base model and the Sport.",
+        "price": 12345,
+        "mileage": "25000 miles",
+        "fuel": "Gasoline",
+        "picture": "https://images.unsplash.com/photo-1599425997288-54a8b9d1b7b5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dGF0YSUyMGluZGljYXRpb258ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
+        "time_create": "2023-11-21T14:39:43.316229Z",
+        "time_update": "2023-11-21T14:39:43.316229Z"
+    },
+{
+        "id": 18,
+        "name": "Toyota Corolla",
+        "description": "The Corolla is a off-road vehicle with a 4-cylinder engine and a 4-door configuration. It has a general-purpose 5-speed manual transmission and a 5-speed automatic transmission. The Corolla is available in two trim levels: the base model and the Sport. The base model has a 1.6-liter engine with a 5-speed manual transmission.",
+        "price": 9000,
+        "mileage": "20000 miles",
+        "fuel": "Electric",
+        "picture": "https://images.unsplash.com/photo-1599425997288-54a8b9d1b7b5?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dGF0YSUyMGluZGljYXRpb258ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80",
+        "time_create": "2023-11-21T14:39:43.316229Z",
+        "time_update": "2023-11-21T14:39:43.316229Z"
+},
+  {
+    "id": 19,
+    "name": "Chevrolet Impala",
+    "description": "A spacious and comfortable sedan, ideal for long drives and known for its smooth ride.",
+    "price": 28000,
+    "mileage": "33000 miles",
+    "fuel": "Gasoline",
+    "picture": "placeholder.jpg",
+    "time_create": "2023-11-30T12:00:00.000000Z",
+    "time_update": "2023-11-30T12:00:00.000000Z"
+  },
+  {
+    "id": 20,
+    "name": "Nissan Altima",
+    "description": "A midsize sedan blending performance and efficiency, perfect for families and commuters.",
+    "price": 24000,
+    "mileage": "18000 miles",
+    "fuel": "Hybrid",
+    "picture": "placeholder.jpg",
+    "time_create": "2023-11-30T12:10:00.000000Z",
+    "time_update": "2023-11-30T12:10:00.000000Z"
+  },
+  {
+    "id": 21,
+    "name": "BMW 3 Series",
+    "description": "A luxury sedan combining elegance, comfort, and cutting-edge technology.",
+    "price": 41000,
+    "mileage": "22000 miles",
+    "fuel": "Diesel",
+    "picture": "placeholder.jpg",
+    "time_create": "2023-11-30T12:20:00.000000Z",
+    "time_update": "2023-11-30T12:20:00.000000Z"
+  }
+]

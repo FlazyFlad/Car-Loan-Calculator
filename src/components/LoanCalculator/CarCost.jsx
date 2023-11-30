@@ -6,9 +6,9 @@ const CarCost = ({ value, onChange, circValue, circOnchange, formatNumber }) => 
 
     return (
         <div className="car-cost flex flex-col gap-4 items-center sm:flex-row sm:items-start sm:w-full sm:justify-between">
-            <div className="slider-input-wrapper sm:w-full sm:flex-1 sm:gap-24">
+            <div className="slider-input-wrapper sm:w-full sm:flex-1 sm:gap-8">
                 <div className="slider-input-labels sm:w-full">
-                    <h1 className='text-red font-bold text-2xl sm:text-left'>Car Cost</h1>
+                    <h1 className='text-red font-bold text-xl sm:text-left'>Car Cost</h1>
                     <p className='text-gray-white text-xs my-4 sm:text-left'>Maximum 50,000,000 ₮</p>
                     <input
                         type="text"
@@ -16,7 +16,7 @@ const CarCost = ({ value, onChange, circValue, circOnchange, formatNumber }) => 
                         onChange={onChange}
                         max="50000000"
                         min="0"
-                        className='text-black text-sm my-4 w-40 h-12 rounded-md px-2 py-2
+                        className='text-black text-xs my-4 w-full h-12 rounded-md px-2 py-2
                         focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:border-yellow-400 sm:w-full'
                     />
                 </div>
@@ -34,7 +34,7 @@ const CarCost = ({ value, onChange, circValue, circOnchange, formatNumber }) => 
                     trackColor="#eeeeee"
                     trackSize={24}
                     dataIndex={10}
-                    valueFontSize="1.5rem"
+                    valueFontSize="1rem"
                 />
             </div>
         </div>

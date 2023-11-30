@@ -14,7 +14,7 @@ const LoanTermSelector = ({setSelectedTerm, selectedTerm}) => {
     return (
         <div className="bg-gray-800 p-6 rounded-lg h-auto sm:w-full   lg:w-full">
             <div className="flex justify-between mb-4">
-                <p className="text-white text-lg">Loan Term</p>
+                <p className="text-white text-lg font-bold">Loan Term</p>
                 <div className="flex gap-4">
                     <button className="text-white p-2">
                         <HiArrowSmallLeft className="w-12 h-5" />
@@ -30,7 +30,7 @@ const LoanTermSelector = ({setSelectedTerm, selectedTerm}) => {
                     <button
                         key={term.value}
                         onClick={() => setSelectedTerm(term.value)}
-                        className={`py-2 px-4 rounded-lg text-white ${selectedTerm === term.value ? 'bg-yellow-500' : 'bg-gray-700'}`}
+                        className={`py-2 px-4 rounded-lg text-white text-xs ${selectedTerm === term.value ? 'bg-yellow-500' : 'bg-gray-700'}`}
                     >
                         {term.label}
                     </button>

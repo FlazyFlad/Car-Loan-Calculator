@@ -4,7 +4,7 @@ const RepaymentMethod = ({selectedMethod, setSelectedMethod}) => {
 
     return (
         <div className="p-4 bg-gray-800 rounded-lg flex-grow flex flex-col lg:w-full">
-            <div className="text-white mb-4 text-left">Repayment Method</div>
+            <div className="text-white mb-4 text-left font-bold">Repayment Method</div>
             <div className="flex justify-between gap-4">
                 <button
                     onClick={() => setSelectedMethod('Equal Parts')}
