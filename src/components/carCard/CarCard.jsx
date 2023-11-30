@@ -6,7 +6,7 @@ import defaultImage from '../../assets/images/carDefault.png';
 import {ThemeContext} from "../../Context";
 import cars from '../../data/cars';
 
-const CarCard = () => {
+const CarCard = ({filteredCars}) => {
     //const cars = useSelector((state) => state.cars?.cars);
     const { theme } = useContext(ThemeContext);
 
@@ -15,16 +15,16 @@ const CarCard = () => {
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentCars = cars.slice(indexOfFirstItem, indexOfLastItem);
+    const currentCars = filteredCars.slice(indexOfFirstItem, indexOfLastItem);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(cars?.length / itemsPerPage); i++) {
+    for (let i = 1; i <= Math.ceil(filteredCars?.length / itemsPerPage); i++) {
         pageNumbers.push(i);
     }
 
-    console.log('cars', cars);
+    console.log('cars', filteredCars);
 
     const currentPageNumberStyles = 'font-bold text-lg';
 

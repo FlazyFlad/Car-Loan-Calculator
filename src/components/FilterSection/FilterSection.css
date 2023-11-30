@@ -1,0 +1,135 @@
+.filter-bar {
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* .filter-bar button {
+    background-color: #FFC107;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+} */
+
+.filter-section {
+    margin-bottom: 20px;
+}
+
+/* buttons start */
+
+.combined-button {
+    display: flex;
+    gap: 10px;
+}
+
+.combined-button button {
+    flex-grow: 1;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.combined-button button:hover {
+    background-color: none ;
+}
+
+.reset-button {
+    background-color: gray;
+    color: white;
+}
+
+.apply-button {
+    background-color: #FFC107;
+    color: white;
+}
+
+.reset-button:hover {
+    background-color: none ;
+}
+
+
+/* buttons end */
+
+.filter-section h2 {
+    margin-bottom: 10px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkbox {
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+
+.checkbox input[type="checkbox"] {
+    opacity: 0;
+    margin-right: 8px; /* Adjust spacing between checkbox and label */
+}
+
+.checkbox .custom-checkbox {
+    width: 15px;
+    height: 15px;
+    background-color: #FFFFFF;
+    border: 1px solid #212121;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-right: 8px; /* Adjust spacing between checkbox and label */
+}
+
+.checkbox input[type="checkbox"]:checked + .custom-checkbox:after {
+    content: '\2713';
+    color: #212121;
+    font-size: 12px;
+}
+
+.checkbox .custom-checkbox:hover {
+    background-color: #ECECEC;
+}
+
+/* Apply consistent margin and padding to all tags within .checkbox-container */
+.checkbox-container * {
+    margin: 0;
+    padding: 0;
+}
+
+/* search panel start */
+
+.search-panel {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    max-width: 300px;
+  }
+  
+  .search-input {
+    flex: 1;
+    border: none;
+    padding: 8px;
+    outline: none;
+  }
+  
+  .search-icon {
+    background-color: #f8f8f8;
+    padding: 8px;
+    cursor: pointer;
+  }
+
+/* search panel end */

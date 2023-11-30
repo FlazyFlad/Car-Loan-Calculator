@@ -95,10 +95,10 @@ const Header = ({ isLoggedIn, onLogout }) => {
                                 </li>
                             ))}
                                 {!theme && (
-                                <i class="fa fa-moon-o theme-icon" onClick={handleChangeTheme} aria-hidden="true"></i>
+                                <i className="fa fa-moon-o theme-icon" onClick={handleChangeTheme} aria-hidden="true"></i>
                                 )}
                                 {theme && (
-                                <i class="fa fa-sun-o theme-icon" onClick={handleChangeTheme} aria-hidden="true"></i>
+                                <i className="fa fa-sun-o theme-icon" onClick={handleChangeTheme} aria-hidden="true"></i>
                                 )}
                             </>
                         )}
