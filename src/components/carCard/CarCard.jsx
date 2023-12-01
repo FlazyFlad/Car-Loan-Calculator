@@ -41,24 +41,24 @@ const CarCard = ({filteredCars}) => {
                                 <h2 className="font-bold text-xl mb-2">{car?.name}</h2>
                                 <FaBookmark className="text-gray-600 hover:text-gray-800 cursor-pointer" />
                             </div>
-                            <p className={`${theme ? 'dark-theme text-gray-400' : 'light-theme'} text-gray-700 text-xs`}>{car?.description}</p>
+                            <p className={`${theme ? 'dark-theme text-400' : 'light-theme'} text-700 text-xs`}>{car?.description}</p>
                         </div>
                         <div>
                             <div className="flex items-center my-2">
                                 <MdOutlineLocationOn className="text-gray-600" />
-                                <span className={`${theme ? 'dark-theme text-gray-400' : 'light-theme'} ml-2 text-gray-900 text-xs`}>Location placeholder</span>
+                                <span className={`${theme ? 'dark-theme text-400' : 'light-theme'} ml-2 text-900 text-xs`}>Location placeholder</span>
                             </div>
                             <div className="flex items-center mb-2">
                                 <FaTag className="text-gray-600" />
-                                <span className={`${theme ? 'dark-theme text-gray-400' : 'light-theme'} ml-2 text-gray-900 text-xs`}>{car?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} tenge</span>
+                                <span className={`${theme ? 'dark-theme text-400' : 'light-theme'} ml-2 text-900 text-xs`}>{car?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} tenge</span>
                             </div>
                             <div className="flex items-center mb-2">
                                 <FaTachometerAlt className="text-gray-600" />
-                                <span className={`${theme ? 'dark-theme text-gray-400' : 'light-theme'} ml-2 text-gray-900 text-xs`}>Mileage placeholder</span>
+                                <span className={`${theme ? 'dark-theme text-400' : 'light-theme'} ml-2 text-900 text-xs`}>Mileage placeholder</span>
                             </div>
                             <div className="flex items-center mb-2">
                                 <FaGasPump className="text-gray-600" />
-                                <span className={`${theme ? 'dark-theme text-gray-400' : 'light-theme'} ml-2 text-gray-900 text-xs`}>Fuel placeholder</span>
+                                <span className={`${theme ? 'dark-theme text-400' : 'light-theme'} ml-2 text-900 text-xs`}>Fuel placeholder</span>
                             </div>
                         </div>
                         <button className="bg-yellow-500 font-bold mt-4 text-white p-2 rounded-xl cursor-pointer transition duration-300 ease-in-out hover:bg-yellow-600">

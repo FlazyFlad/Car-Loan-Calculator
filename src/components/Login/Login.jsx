@@ -35,15 +35,15 @@ const Login = ({ setIsLoggedIn }) => {
 
     return (
         <>
-            <div className={`login-container ${theme ? 'dark-theme' : 'light-theme'}`}>
-                <div className="form-container">
-                    <h2 className={`${theme ? 'light-text-color' : 'light-text-color'}`}>Login to Your Account</h2> <br />
+            <div className="login-container">
+                <div className={`form-container ${theme ? 'darker-theme' : 'lighter-theme'}`}>
+                    <h2>Login to Your Account</h2> <br />
                     <form id="login-form" className="form" onSubmit={handleSubmit}>
                         <input className={`${theme ? 'light-text-color' : 'light-text-color'}`} onChange={handleInput} type="email" name="email" placeholder="Email" value={formData.email} required />
                         <input className={`${theme ? 'light-text-color' : 'light-text-color'}`} onChange={handleInput} type="password" name='password' placeholder="Password" value={formData.password} required />
                         <button type="submit" className="ctaa-button">Login</button>
                         {error && <p className="error-message">{error}</p>}
-                        <p className={`${theme ? 'light-text-color' : 'light-text-color'}`}>Don't have an account?
+                        <p >Don't have an account?
                             <Link style={{ marginLeft: '5px' }} to="/register">
                                 Register
                             </Link>

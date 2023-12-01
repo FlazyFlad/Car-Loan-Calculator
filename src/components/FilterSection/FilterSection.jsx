@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import DualSlider from './DualSlider';
 import './FilterSection.css';
+import { ThemeContext } from '../../Context';
 
 const FilterSection = ({ onFilterChange, modelsData, fuelsData, maxPrice, minPrice, minMileage, maxMileage }) => {
+  const { theme } = useContext(ThemeContext);
   const [selectedModelOptions, setSelectedModelOptions] = useState([]);
   const [selectedFuelOptions, setSelectedFuelOptions] = useState([]);
   const [resetSliders, setResetSliders] = useState(false);
   const [selectedPriceRange, setSelectedPriceRange] = useState({ min: minMileage, max: maxPrice });
   const [selectedMileageRange, setSelectedMileageRange] = useState({ min: maxMileage, max: maxMileage });
   const [searchInput, setSearchInput] = useState('');
+  
 
 
   useEffect(() => {
@@ -75,10 +78,11 @@ const FilterSection = ({ onFilterChange, modelsData, fuelsData, maxPrice, minPri
   };
 
   return (
-    <div className="filter-bar">
+    <div className={`filter-bar ${theme ? 'darker-theme' : 'lighter-theme'}`}>
         <div className="filter-section">
         <h2>Search by Name</h2>
         <input
+            className={`search-panel ${theme ? 'light-text-color' : 'light-text-color'}`}
             type="text"
             value={searchInput}
             onChange={handleSearchInputChange}

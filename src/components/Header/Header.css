@@ -159,8 +159,19 @@ li:hover {
     background-color: #151515;
   }
   
+  
   .dark-bgc-color {
     background-color: #e5e7eb;
+  }
+
+  .lighter-theme {
+    background-color: white;
+    color: #131313;
+  }
+
+  .darker-theme {
+    background-color: #131313;
+    color: white;
   }
   
 /* Themes end */
