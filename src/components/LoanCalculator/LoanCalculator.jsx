@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, lazy, Suspense, useContext} from 'react';
+import React, { useState, useMemo, useEffect, lazy, Suspense, useContext } from 'react';
 import './LoanCalculator.css';
 import CarCost from "./CarCost";
 import TitleText from "./TitleText";
@@ -10,8 +10,8 @@ import PaymentMethod from "./PaymentMethod";
 import CarLoanEstimate from "./CarLoanEstimate";
 import ApprovalButton from "./ApprovalButton";
 import { ThemeContext } from '../../Context';
-import {useDispatch, useSelector} from "react-redux";
-import {getCars} from "../../actions/getCarsAction";
+import { useDispatch, useSelector } from "react-redux";
+import { getCars } from "../../actions/getCarsAction";
 import CarCard from "../carCard/CarCard";
 import FilterSection from '../FilterSection/FilterSection';
 
@@ -20,7 +20,7 @@ import carData from '../../data/cars';
 const LoanCalculator = () => {
 
     const dispatch = useDispatch();
-    
+
     const { theme } = useContext(ThemeContext);
 
     const [loading, setLoading] = useState(true);
@@ -76,7 +76,7 @@ const LoanCalculator = () => {
     }
 
     useEffect(() => {
-       dispatch(getCars())
+        dispatch(getCars())
     }, [dispatch]);
 
 
@@ -84,38 +84,38 @@ const LoanCalculator = () => {
 
     const mileageValues = carData.map((car) => parseInt(car.mileage.replace(' miles', ''), 10)).filter((value) => !isNaN(value));
     const priceValues = carData.map((car) => car.price).filter((value) => !isNaN(value));
-    
+
     const maxMileage = Math.max(...mileageValues);
     const maxPrice = Math.max(...priceValues);
     const minMileage = Math.min(...mileageValues);
     const minPrice = Math.min(...priceValues);
-    
+
 
     const [filteredCars, setFilteredCars] = useState(carData);
 
-    
+
     const handleFilterChange = (filters) => {
         const { models, fuels, priceRange, mileageRange, searchInput } = filters;
-      
+
 
         // Filtering logic
         const updatedFilteredCars = carData.filter((car) => {
             const passesModelFilter = models.length === 0 || models.includes(car.name);
             const passesFuelFilter = fuels.length === 0 || fuels.includes(car.fuel);
             const passesPriceFilter =
-              car.price >= priceRange.min && car.price <= priceRange.max;
+                car.price >= priceRange.min && car.price <= priceRange.max;
             const passesMileageFilter =
-              parseInt(car.mileage.replace(' miles', ''), 10) >= mileageRange.min &&
-              parseInt(car.mileage.replace(' miles', ''), 10) <= mileageRange.max;
+                parseInt(car.mileage.replace(' miles', ''), 10) >= mileageRange.min &&
+                parseInt(car.mileage.replace(' miles', ''), 10) <= mileageRange.max;
             const passesSearchFilter =
-              !searchInput || new RegExp(searchInput, 'i').test(car.name); // Case-insensitive regex match
-          
+                !searchInput || new RegExp(searchInput, 'i').test(car.name); // Case-insensitive regex match
+
             return passesModelFilter && passesFuelFilter && passesPriceFilter && passesMileageFilter && passesSearchFilter;
-          });
-          
-          setFilteredCars(updatedFilteredCars);
-      };
-      
+        });
+
+        setFilteredCars(updatedFilteredCars);
+    };
+
 
 
     return (
@@ -126,7 +126,7 @@ const LoanCalculator = () => {
             />
             <div className='lg:grid lg:grid-cols-12 lg:gap-24 lg:justify-center lg:items-center sm:grid-cols-1 sm:gap-4 sm:justify-center sm:items-center'>
                 <div className="calculator-container col-span-12 lg:col-span-3 lg:align-self">
-                <div className="calculator-container" >
+                    <div className="calculator-container" >
                         <div className="calculator flex flex-col gap-4 items-center lg:gap-8 lg:items-start w-full">
                             {/* <CarCost
                                 value={formattedCarValue}
@@ -134,7 +134,7 @@ const LoanCalculator = () => {
                                 circValue={carValue}
                                 circOnchange={(value) => setCarValue(value)}
                                 formatNumber={formatNumber}
-                            />
+                            /> */}
                             <InitialPayment
                                 paymentValue={initialPaymentValue}
                                 handlePaymentChange={(e) => {
@@ -144,7 +144,7 @@ const LoanCalculator = () => {
                                 circleValue={formatNumber(carValue * 0.1)}
                                 circleOnChange={(value) => setCarValue(value / 0.1)}
                                 formatNumber={formatNumber}
-                            /> */}
+                            />
                         </div>
                         <div className="flex flex-col gap-4 items-center mt-2 lg:gap-8 lg:items-start lg:mt-8 w-full">
                             <div className="flex flex-col sm:w-full">
@@ -153,7 +153,7 @@ const LoanCalculator = () => {
                                     selectedTerm={selectedTerm}
                                 />
                             </div>
-                                <div className="flex flex-wrap justify-between gap-8 mt-2 w-full">
+                            <div className="flex flex-wrap justify-between gap-8 mt-2 w-full">
                                 <CarChoice
                                     selectedCar={selectedCar}
                                     setSelectedCar={setSelectedCar}
@@ -179,31 +179,31 @@ const LoanCalculator = () => {
                                 <ApprovalButton handleLogs={handleLogs} />
                             </div>
 
+                        </div>
+                    </div>
+                </div>
+                <div className="col-span-12 lg:col-span-6 bg-inherit">
+                    <div className="flex bg-inherit flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
+                        <CarCard filteredCars={filteredCars} />
+                    </div>
+                </div>
+                <div className="col-span-12 lg:col-span-2 bg-inherit">
+                    <div className="flex bg-inherit flex-col gap-4 items-start lg:items-start w-full">
+                        <p className="text-center text-xl lg:text-left lg:align-top">
+                            <FilterSection
+                                onFilterChange={handleFilterChange}
+                                modelsData={['Hyundai Kona', 'Tata Indica', 'Hyundai Elantra', 'Toyota Corolla', 'Chevrolet Impala', 'Nissan Altima', 'BMW 3 Series']}
+                                fuelsData={['Gasoline', 'Electric', 'Hybrid', 'Diesel']}
+                                maxPrice={maxPrice}
+                                minPrice={minPrice}
+                                minMileage={minMileage}
+                                maxMileage={maxMileage}
+                            />
+                        </p>
                     </div>
                 </div>
             </div>
-            <div className="col-span-12 lg:col-span-6 bg-inherit">
-                <div className="flex bg-inherit flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
-                   <CarCard filteredCars={filteredCars}/>
-                </div>
-            </div>
-            <div className="col-span-12 lg:col-span-2 bg-inherit">
-                <div className="flex bg-inherit flex-col gap-4 items-start lg:items-start w-full">
-                    <p className="text-center text-xl lg:text-left lg:align-top">
-                    <FilterSection
-                    onFilterChange={handleFilterChange}
-                    modelsData={['Hyundai Kona', 'Tata Indica', 'Hyundai Elantra', 'Toyota Corolla', 'Chevrolet Impala', 'Nissan Altima', 'BMW 3 Series']}
-                    fuelsData={['Gasoline', 'Electric', 'Hybrid', 'Diesel']}
-                    maxPrice={maxPrice}
-                    minPrice={minPrice}
-                    minMileage={minMileage}
-                    maxMileage={maxMileage}
-                    />
-                    </p>
-                </div>
-            </div>
-        </div>
-</>
+        </>
     );
 }
 

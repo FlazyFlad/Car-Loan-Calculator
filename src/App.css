@@ -8,9 +8,8 @@ Footer {
     background-color: #23262d;
     padding: 20px 0;
     color: #fff;
-}
+} */
 
 .app-spacer {
-    flex: 1;
-    display: flex;
-} */
+    min-height: 110vh;
+}

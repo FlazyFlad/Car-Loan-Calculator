@@ -1,39 +1,64 @@
 import React, { useState, useContext } from 'react';
 import './Register.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { ThemeContext } from '../../Context';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../../actions/authActions';
 
 const Register = () => {
     const navigate = useNavigate();
     const { theme } = useContext(ThemeContext);
+
+    const dispatch = useDispatch();
+    const registering = useSelector((state) => state.auth.registering);
+    const registerError = useSelector((state) => state.auth.registerError);
+    const registrationSuccess = useSelector((state) => state.auth.registrationSuccess);
+
     const [formData, setFormData] = useState({
-        username: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        password2: '',
+        first_name: '',
+        last_name: '',
+        iin: '',
+        data_birth: '',
     });
-    const [error, setError] = useState(null);
 
-    const handleInputChange = (event) => {
+    const handleDateChange = (e) => {
+        const selectedDate = e.target.value;
         setFormData({
             ...formData,
-            [event.target.name]: event.target.value
+            data_birth: selectedDate,
         });
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        const userExists = users.some(user => user.email === formData.email);
-        if (userExists) {
-            setError('User with this email already exists');
-        } else {
-            users.push(formData);
-            localStorage.setItem('users', JSON.stringify(users));
-            navigate('/login');
-        }
+    const handleInputChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        });
     };
-    
+
+
+    console.log(registrationSuccess)
+
+    const handleSubmit = (e) => {
+        console.log(formData)
+        e.preventDefault();
+        dispatch(register(formData))
+            .then(() => {
+                if (registrationSuccess) {
+                    navigate('/login');
+                }
+            })
+            .catch((error) => {
+                console.error('Registration error:', error);
+            });
+    };
+
+    if (registrationSuccess) {
+        return <Navigate to="/login" />
+    }
 
     return (
         <>
@@ -41,13 +66,99 @@ const Register = () => {
                 <div className={`form-container ${theme ? 'darker-theme' : 'lighter-theme'}`}>
                     <h2>Register for Your Car Loan</h2> <br />
                     <form id="register-form" className="form" onSubmit={handleSubmit}>
-                        <input className={`${theme ? 'light-text-color' : 'light-text-color'}`}  type="text" name="username" placeholder="Username" value={formData.username} onChange={handleInputChange} required />
-                        <input className={`${theme ? 'light-text-color' : 'light-text-color'}`}  type="email" name="email" placeholder="Email" value={formData.email} onChange={handleInputChange} required />
-                        <input className={`${theme ? 'light-text-color' : 'light-text-color'}`}  type="password" name="password" placeholder="Password" value={formData.password} onChange={handleInputChange} required />
-                        <input className={`${theme ? 'light-text-color' : 'light-text-color'}`}  type="password" name="confirmPassword" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleInputChange} required />
-                        <button type="submit" className="ctaa-button">Register</button>
-                        {error && <p className="error-message">{error}</p>}
-                        <p>Already have an account? 
+
+                        <input
+                            className={`${theme
+                                ?
+                                'light-text-color'
+                                :
+                                'light-text-color'}`}
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            required
+                        />
+
+                        <input
+                            className={`${theme
+                                ?
+                                'light-text-color'
+                                :
+                                'light-text-color'}`}
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={handleInputChange}
+                            required
+                        />
+
+                        <input
+                            className={`${theme
+                                ?
+                                'light-text-color'
+                                :
+                                'light-text-color'}`}
+                            type="password"
+                            name="password2"
+                            placeholder="Repeat Password"
+                            value={formData.password2}
+                            onChange={handleInputChange}
+                            required
+                        />
+
+                        <input
+                            className={`${theme
+                                ?
+                                'light-text-color'
+                                :
+                                'light-text-color'}`}
+                            type="text"
+                            name="first_name"
+                            placeholder="First Name"
+                            value={formData.first_name}
+                            onChange={handleInputChange}
+                            required
+                        />
+
+                        <input
+                            className={`${theme ? 'light-text-color' : 'light-text-color'}`}
+                            type="text"
+                            name="last_name"
+                            placeholder="Last Name"
+                            value={formData.last_name}
+                            onChange={handleInputChange}
+                            required
+                        />
+
+                        <input
+                            className={`${theme ? 'light-text-color' : 'light-text-color'}`}
+                            type="text"
+                            pattern="[0-9]*"
+                            inputMode="numeric"
+                            name="iin"
+                            placeholder="Individual identification number (12 numbers)"
+                            value={formData.iin}
+                            onChange={handleInputChange}
+                            required
+                        />
+
+                        <input
+                            type="date"
+                            name="date_birth"
+                            className={`${theme ? 'light-text-color' : 'light-text-color'}`}
+                            value={formData.data_birth}
+                            onChange={handleDateChange}
+                            required
+                        />
+
+                        <button type="submit" className="ctaa-button" disabled={registering}>
+                            {registering ? 'Registering...' : 'Register'}
+                        </button>
+                        {registerError && <p className="error-message">{registerError}</p>}
+                        <p>Already have an account?
                             <Link style={{ marginLeft: '5px' }} to="/login">
                                 Login
                             </Link>

@@ -3,8 +3,12 @@
     border-color: #FFC107;
 }
 
-.container{
-    margin-left: 9%;
+.container {
+    margin-left: 25vh;
+}
+.button-section{
+    margin-top: 10vh;
+    margin-left: 65vh;
 }
 
 .profile-button {
@@ -40,4 +44,29 @@
     background: #FFC107;
     cursor: pointer;
     border: solid 1px #FFC107;
+}
+
+.loading-spinner {
+    border: 1vh solid #ffc107;
+    border-top: 8px solid transparent;
+    border-radius: 50%;
+    width: 10vh;
+    height: 10vh;
+    animation: spin 1s linear infinite;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

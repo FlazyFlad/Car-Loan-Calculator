@@ -1,7 +1,7 @@
 :root {
     --light-bg-color: rgba(255, 255, 255, 0.90);
     --dark-bg-color: #151515;
-  }
+}
 
 body {
     margin: 0;
@@ -111,7 +111,7 @@ li:hover {
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
 }
 
@@ -137,43 +137,43 @@ li:hover {
 
 /* Themes start*/
 
-  .light-theme {
+.light-theme {
     background-color: #ffffff;
     color: #151515;
-  }
-  
-  .dark-theme {
+}
+
+.dark-theme {
     background-color: #151515;
     color: #ffffff;
-  }
+}
 
-  .light-text-color {
+.light-text-color {
     color: #151515;
-  }
-  
-  .dark-text-color {
+}
+
+.dark-text-color {
     color: #ffffff;
-  }
+}
 
-  .light-bgc-color {
+.light-bgc-color {
     background-color: #151515;
-  }
-  
-  
-  .dark-bgc-color {
-    background-color: #e5e7eb;
-  }
+}
 
-  .lighter-theme {
+
+.dark-bgc-color {
+    background-color: #e5e7eb;
+}
+
+.lighter-theme {
     background-color: white;
     color: #131313;
-  }
+}
 
-  .darker-theme {
+.darker-theme {
     background-color: #131313;
     color: white;
-  }
-  
+}
+
 /* Themes end */
 
 /* Theme Icon start */
