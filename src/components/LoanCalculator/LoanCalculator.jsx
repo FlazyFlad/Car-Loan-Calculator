@@ -15,13 +15,14 @@ import { getCars } from "../../actions/getCarsAction";
 import CarCard from "../carCard/CarCard";
 import FilterSection from '../FilterSection/FilterSection';
 
-import carData from '../../data/cars';
+//import carData from '../../data/cars';
 
 const LoanCalculator = () => {
 
     const dispatch = useDispatch();
 
     const { theme } = useContext(ThemeContext);
+    const carData = useSelector((state) => state.cars?.cars);
 
     const [loading, setLoading] = useState(true);
     const [carValue, setCarValue] = useState(12000000);
