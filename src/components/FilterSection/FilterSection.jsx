@@ -81,7 +81,7 @@ const FilterSection = ({ onFilterChange, modelsData, fuelsData, maxPrice, minPri
   };
 
   return (
-      <div className={`${theme ? 'darker-theme border-gray-600 border-2 rounded-2xl' : 'lighter-theme'} p-4 w-inherit flex flex-col`}>
+      <div className={`${theme ? 'darker-theme border-gray-600 border-2 rounded-2xl' : 'lighter-theme'} p-4 w-inherit flex flex-col rounded-2xl`}>
         <div className="filter-section">
             <h2 className='font-bold text-lg'>Search by Name</h2>
             <div className="flex border-2 items-center rounded-2xl bg-gray-200 focus-within:ring-2 focus-within:ring-yellow-600">
@@ -123,7 +123,7 @@ const FilterSection = ({ onFilterChange, modelsData, fuelsData, maxPrice, minPri
               </div>
           </div>
 
-          <div className="flex flex-col">
+          {/*<div className="flex flex-col">
             <h2 className='font-bold text-lg mb-4'>Filter by mileage</h2>
               <div className="flex flex-start mb-8">
                   <DualSlider
@@ -135,7 +135,7 @@ const FilterSection = ({ onFilterChange, modelsData, fuelsData, maxPrice, minPri
                   />
               </div>
           </div>
-
+*/}
           <div className="combined-button">
             <button className="reset-button" onClick={handleResetFilters}>
               Reset

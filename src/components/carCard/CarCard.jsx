@@ -29,11 +29,11 @@ const CarCard = ({filteredCars}) => {
     const currentPageNumberStyles = 'font-bold text-lg';
 
     return (
-        <div className={`${theme ? 'dark-theme' : 'light-theme'} space-y-4 p-4 bg-inherit`}>
+        <div className={`${theme ? 'dark-theme' : 'light-theme'} space-y-4 p-4 bg-inherit hover:cursor-pointer`}>
             {currentCars.map((car) => (
                 <div key={car.id} className={`${theme ? 'dark-theme border-gray-600 border-2' : 'light-theme'} flex flex-col md:flex-row rounded-xl overflow-hidden`}>
                     <div className="md:w-1/3">
-                        <img className="object-cover object-center w-full h-full" src={defaultImage} alt={car?.name} />
+                        <img className="object-cover object-center w-full h-full" src={car?.picture || defaultImage} alt="car" />
                     </div>
                     <div className="md:w-2/3 p-4 flex flex-col justify-between">
                         <div>

@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import { HiArrowSmallRight, HiArrowSmallLeft } from 'react-icons/hi2';
 
-const LoanTermSelector = ({setSelectedTerm, selectedTerm}) => {
-     const terms = [
+const LoanTermSelector = ({ setSelectedTerm, selectedTerm, onTermChange }) => {
+    const terms = [
         { value: 2, label: '2 Months' },
         { value: 3, label: '3 Months' },
         { value: 4, label: '4 Months' },
-        { value: 5, label: '5 Years' },
-        { value: 6, label: '6 Years' },
-        { value: 7, label: '7 Years' },
+        { value: 60, label: '5 Years' },
+        { value: 72, label: '6 Years' },
+        { value: 84, label: '7 Years' },
     ];
+
+    const handleTermSelection = (value) => {
+        setSelectedTerm(value);
+        if (onTermChange) {
+            onTermChange(value);
+        }
+    }
+
 
     return (
         <div className="bg-gray-800 p-6 rounded-lg h-auto sm:w-full   lg:w-full">
@@ -29,7 +37,7 @@ const LoanTermSelector = ({setSelectedTerm, selectedTerm}) => {
                 {terms.map(term => (
                     <button
                         key={term.value}
-                        onClick={() => setSelectedTerm(term.value)}
+                        onClick={() => handleTermSelection(term.value)}
                         className={`py-2 px-4 rounded-lg text-white text-xs ${selectedTerm === term.value ? 'bg-yellow-500' : 'bg-gray-700'}`}
                     >
                         {term.label}
