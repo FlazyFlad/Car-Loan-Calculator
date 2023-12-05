@@ -17,7 +17,6 @@ const getCarsReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 cars: action.payload,
-                //successMessage: action.payload.message,
             };
         case 'GET_CARS_FAILURE':
             return {
