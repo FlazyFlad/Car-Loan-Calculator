@@ -77,8 +77,9 @@ const LoanCalculator = () => {
 
 
     //const mileageValues = carData?.map((car) => parseInt(car?.mileage.replace(' miles', ''), 10)).filter((value) => !isNaN(value));
-    const priceValues = carData?.map((car) => car?.price).filter((value) => !isNaN(value));
-
+    const priceValues = Array.isArray(carData)
+        ? carData.map((car) => car?.price).filter((value) => !isNaN(value))
+        : [];
     //const maxMileage = Math.max(...mileageValues);
     const maxPrice = Math.max(...priceValues);
     //const minMileage = Math.min(...mileageValues);
