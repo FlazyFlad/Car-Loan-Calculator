@@ -15,8 +15,6 @@ import { getCars } from "../../actions/getCarsAction";
 import CarCard from "../carCard/CarCard";
 import FilterSection from '../FilterSection/FilterSection';
 
-//import carData from '../../data/cars';
-
 const LoanCalculator = () => {
 
     const dispatch = useDispatch();
@@ -29,8 +27,10 @@ const LoanCalculator = () => {
     const [selectedCar, setSelectedCar] = useState('new');
     const [selectedMethod, setSelectedMethod] = useState('Equal Parts');
     const [monthlyPayment, setMonthlyPayment] = useState(0);
-    const [interestRate, setInterestRate] = useState(5);
+    const [interestRate, setInterestRate] = useState(21);
     const [fullRate, setFullRate] = useState(0);
+    //const [rate, setRate] = useState(21);
+
 
     const [totalLoanAmount, setTotalLoanAmount] = useState(0);
 
@@ -61,21 +61,14 @@ const LoanCalculator = () => {
     };
 
     const handleLogs = () => {
-        console.log("Loan Details:");
-        console.log("Car Value:", carValue.toString());
-        console.log("Total Loan Amount:", totalLoanAmount.toFixed(2));
-        console.log("Monthly Payment:", monthlyPayment.toFixed(2));
-        /*const log = {
+        const loanDetails = {
             carValue: carValue.toString(),
-            selectedTerm: selectedTerm.toString(),
-            selectedCar: selectedCar,
-            selectedMethod: selectedMethod,
-            monthlyPayment: monthlyPayment.toString(),
-            interestRate: interestRate.toString(),
-            fullRate: fullRate.toString(),
-            otherBanksPayment: otherBanksPayment.toString()
+            totalLoanAmount: totalLoanAmount.toFixed(2),
+            monthlyPayment: monthlyPayment.toFixed(2),
+            interestRate: interestRate.toString()
         }
-        console.log(JSON.stringify(log));*/
+
+        console.log(JSON.stringify(loanDetails));
     }
 
     useEffect(() => {
@@ -204,6 +197,8 @@ const LoanCalculator = () => {
                                     principal={carValue - (carValue * 0.1)}
                                     loanTerm={selectedTerm}
                                     totalLoanAmount={totalLoanAmount}
+                                    rate={interestRate}
+                                    setRate={setInterestRate}
                                 />
 
                                 <CarLoanEstimate
