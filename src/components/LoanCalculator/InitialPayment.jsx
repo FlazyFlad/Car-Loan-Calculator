@@ -17,7 +17,7 @@ const InitialPayment = ({ paymentValue, handlePaymentChange, circleValue, circle
                         onChange={handlePaymentChange}
                         max="500000"
                         min="0"
-                        className='text-black text-xs my-4 w-full h-12 rounded-md px-2 py-2
+                        className='text-black text-xs bg-gray-200 my-4 w-full h-12 rounded-md px-2 py-2
                         focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:border-yellow-400 sm:w-full'
                     />
                 </div>

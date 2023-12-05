@@ -124,17 +124,17 @@ const LoanCalculator = () => {
                 titleText="Car Loan Calculator"
                 subTitleText="Calculate your monthly car repayments as well as total payment and total interest based on vehicle price."
             />
-            <div className='lg:grid lg:grid-cols-12 lg:gap-24 lg:justify-center lg:items-center sm:grid-cols-1 sm:gap-4 sm:justify-center sm:items-center'>
+            <div className='lg:grid lg:grid-cols-12 lg:gap-24 lg:items-start sm:grid-cols-1 sm:gap-4 sm:justify-center'>
                 <div className="calculator-container col-span-12 lg:col-span-3 lg:align-self">
                     <div className="calculator-container" >
                         <div className="calculator flex flex-col gap-4 items-center lg:gap-8 lg:items-start w-full">
-                            {/* <CarCost
+                             <CarCost
                                 value={formattedCarValue}
                                 onChange={(e) => handleCarCostChange(e)}
                                 circValue={carValue}
                                 circOnchange={(value) => setCarValue(value)}
                                 formatNumber={formatNumber}
-                            /> */}
+                            />
                             <InitialPayment
                                 paymentValue={initialPaymentValue}
                                 handlePaymentChange={(e) => {
@@ -187,19 +187,17 @@ const LoanCalculator = () => {
                         <CarCard filteredCars={filteredCars} />
                     </div>
                 </div>
-                <div className="col-span-12 lg:col-span-2 bg-inherit">
+                <div className="sm:col-span-12 lg:col-span-2 bg-inherit">
                     <div className="flex bg-inherit flex-col gap-4 items-start lg:items-start w-full">
-                        <p className="text-center text-xl lg:text-left lg:align-top">
-                            <FilterSection
-                                onFilterChange={handleFilterChange}
-                                modelsData={['Hyundai Kona', 'Tata Indica', 'Hyundai Elantra', 'Toyota Corolla', 'Chevrolet Impala', 'Nissan Altima', 'BMW 3 Series']}
-                                fuelsData={['Gasoline', 'Electric', 'Hybrid', 'Diesel']}
-                                maxPrice={maxPrice}
-                                minPrice={minPrice}
-                                minMileage={minMileage}
-                                maxMileage={maxMileage}
-                            />
-                        </p>
+                        <FilterSection
+                            onFilterChange={handleFilterChange}
+                            modelsData={['Hyundai Kona', 'Tata Indica', 'Hyundai Elantra', 'Toyota Corolla', 'Chevrolet Impala', 'Nissan Altima', 'BMW 3 Series']}
+                            fuelsData={['Gasoline', 'Electric', 'Hybrid', 'Diesel']}
+                            maxPrice={maxPrice}
+                            minPrice={minPrice}
+                            minMileage={minMileage}
+                            maxMileage={maxMileage}
+                        />
                     </div>
                 </div>
             </div>
