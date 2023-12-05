@@ -220,7 +220,7 @@ const LoanCalculator = () => {
                     <div className="flex bg-inherit flex-col gap-4 items-start lg:items-start w-full">
                         <FilterSection
                             onFilterChange={handleFilterChange}
-                            modelsData={carData.map((car) => car?.name)}
+                            modelsData={carData?.map((car) => car?.name)}
                             fuelsData={['Gasoline', 'Electric', 'Hybrid', 'Diesel']}
                             maxPrice={maxPrice}
                             minPrice={minPrice}

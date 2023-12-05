@@ -58,7 +58,7 @@ const FilterSection = ({ onFilterChange, modelsData, fuelsData, maxPrice, minPri
   }, [resetSliders]);
 
   const renderCheckboxOptions = (options, selectedOptions, setSelectedOptions) => {
-    return options.map((option) => (
+    return options?.map((option) => (
         <div key={option} className="form-control border-none bg-transparent">
             <label className="cursor-pointer label">
                 <span className={`label-text p-2 ${selectedOptions.includes(option) ? 'text-yellow-500' : ''}`}>{option}</span>
