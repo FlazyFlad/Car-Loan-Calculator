@@ -70,9 +70,9 @@ const Register = () => {
                         <input
                             className={`${theme
                                 ?
-                                'light-text-color'
+                                'dark-text-color'
                                 :
-                                'light-text-color'}`}
+                                'dark-text-color'}`}
                             type="email"
                             name="email"
                             placeholder="Email"
@@ -84,9 +84,9 @@ const Register = () => {
                         <input
                             className={`${theme
                                 ?
-                                'light-text-color'
+                                'dark-text-color'
                                 :
-                                'light-text-color'}`}
+                                'dark-text-color'}`}
                             type="password"
                             name="password"
                             placeholder="Password"
@@ -98,9 +98,9 @@ const Register = () => {
                         <input
                             className={`${theme
                                 ?
-                                'light-text-color'
+                                'dark-text-color'
                                 :
-                                'light-text-color'}`}
+                                'dark-text-color'}`}
                             type="password"
                             name="password2"
                             placeholder="Repeat Password"
@@ -112,9 +112,9 @@ const Register = () => {
                         <input
                             className={`${theme
                                 ?
-                                'light-text-color'
+                                'dark-text-color'
                                 :
-                                'light-text-color'}`}
+                                'dark-text-color'}`}
                             type="text"
                             name="first_name"
                             placeholder="First Name"
@@ -124,7 +124,7 @@ const Register = () => {
                         />
 
                         <input
-                            className={`${theme ? 'light-text-color' : 'light-text-color'}`}
+                            className={`${theme ? 'dark-text-color' : 'dark-text-color'}`}
                             type="text"
                             name="last_name"
                             placeholder="Last Name"
@@ -134,7 +134,7 @@ const Register = () => {
                         />
 
                         <input
-                            className={`${theme ? 'light-text-color' : 'light-text-color'}`}
+                            className={`${theme ? 'dark-text-color' : 'dark-text-color'}`}
                             type="text"
                             pattern="[0-9]*"
                             inputMode="numeric"
@@ -148,7 +148,7 @@ const Register = () => {
                         <input
                             type="date"
                             name="date_birth"
-                            className={`${theme ? 'light-text-color' : 'light-text-color'}`}
+                            className={`${theme ? 'dark-text-color' : 'dark-text-color'}`}
                             value={formData.data_birth}
                             onChange={handleDateChange}
                             required

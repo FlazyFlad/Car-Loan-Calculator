@@ -2,7 +2,6 @@
 .hero {
     position: relative;
     height: 100vh;
-     /* Specify the path to your background image */
     background-size: cover;
     background-position: center;
     color: white;
@@ -14,7 +13,8 @@
 
 .hero-content {
     background-color: rgba(255, 255, 255, 0.90); /* Semi-transparent white background */
-    padding: 40px;
+    display: block !important;
+    padding: 40px !important;
     border-radius: 10px;
 }
 

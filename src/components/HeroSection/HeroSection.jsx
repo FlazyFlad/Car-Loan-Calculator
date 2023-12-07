@@ -19,11 +19,10 @@ const HeroSection = () => {
           loop: true,
         });
     
-        // Clean up on unmount
         return () => {
           typed.destroy();
         };
-      }, []); // Empty dependency array ensures this effect runs once after the initial render
+      }, []);
 
     return (
         <>

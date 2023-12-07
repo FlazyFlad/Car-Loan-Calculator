@@ -40,6 +40,6 @@ const InitialPayment = ({ paymentValue, handlePaymentChange, circleValue, circle
             </div>
         </div>
     );
-}
+};
 
 export default InitialPayment;

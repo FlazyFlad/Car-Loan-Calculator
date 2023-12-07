@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCars } from "../../actions/getCarsAction";
 import CarCard from "../carCard/CarCard";
 import FilterSection from '../FilterSection/FilterSection';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const LoanCalculator = () => {
 
@@ -29,8 +30,10 @@ const LoanCalculator = () => {
     const [monthlyPayment, setMonthlyPayment] = useState(0);
     const [interestRate, setInterestRate] = useState(21);
     const [fullRate, setFullRate] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 4;
     //const [rate, setRate] = useState(21);
-
+    const [isLoading, setIsLoading] = useState(true);
 
     const [totalLoanAmount, setTotalLoanAmount] = useState(0);
 
@@ -73,7 +76,14 @@ const LoanCalculator = () => {
 
     useEffect(() => {
         dispatch(getCars())
-    }, [dispatch]);
+          .then(() => {
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.error('Error fetching car data:', error);
+            setIsLoading(false);
+          });
+      }, [dispatch]);
 
     useEffect(() => {
         if (carData && Array.isArray(carData)) {
@@ -91,26 +101,34 @@ const LoanCalculator = () => {
 
     const [filteredCars, setFilteredCars] = useState(carData);
 
-    const handleFilterChange = (filters) => {
+    const handleFilterChange = (filters, callback) => {
         const { models, fuels, priceRange, mileageRange, searchInput } = filters;
-
+      
         const updatedFilteredCars = carData.filter((car) => {
-            console.log('car', car)
-            const passesModelFilter = models?.length === 0 || models?.includes(car?.name);
-            const passesFuelFilter = fuels?.length === 0 || fuels?.includes(car?.fuel);
-            const passesPriceFilter =
-                car?.price >= priceRange?.min && car?.price <= priceRange?.max;
-            /*const passesMileageFilter =
-                parseInt(car?.mileage?.replace(' miles', ''), 10) >= mileageRange?.min &&
-                parseInt(car?.mileage?.replace(' miles', ''), 10) <= mileageRange?.max;*/
-            const passesSearchFilter =
-                !searchInput || new RegExp(searchInput, 'i').test(car?.name);
-
-            return passesModelFilter && passesFuelFilter && passesPriceFilter  /*passesMileageFilter*/ && passesSearchFilter;
+          const passesModelFilter = models?.length === 0 || models?.includes(car?.name);
+          const passesFuelFilter = fuels?.length === 0 || fuels?.includes(car?.fuel);
+          const passesPriceFilter =
+            car?.price >= priceRange?.min && car?.price <= priceRange?.max;
+          /*const passesMileageFilter =
+            parseInt(car?.mileage?.replace(' miles', ''), 10) >= mileageRange?.min &&
+            parseInt(car?.mileage?.replace(' miles', ''), 10) <= mileageRange?.max;*/
+          const passesSearchFilter =
+            !searchInput || new RegExp(searchInput, 'i').test(car?.name);
+      
+          return (
+            passesModelFilter &&
+            passesFuelFilter &&
+            passesPriceFilter /*passesMileageFilter*/ &&
+            passesSearchFilter
+          );
         });
 
-        setFilteredCars(updatedFilteredCars);
-    };
+        setFilteredCars(updatedFilteredCars, callback); 
+      };
+    
+      const handleFilterPageChange = () => {
+        setCurrentPage(1);
+      };
 
     const calculateLoanDetails = () => {
         const downPayment = carValue * 0.1;
@@ -144,6 +162,8 @@ const LoanCalculator = () => {
 
     return (
         <>
+        {!isLoading ? (
+            <>
             <TitleText
                 titleText="Car Loan Calculator"
                 subTitleText="Calculate your monthly car repayments as well as total payment and total interest based on vehicle price."
@@ -187,7 +207,6 @@ const LoanCalculator = () => {
                                 />
                             </div>
                         </div>
-
                         <div className="flex flex-col gap-4 items-center mt-2 lg:gap-8 lg:items-start lg:mt-8 w-full">
                             <div className="flex flex-col w-full mt-2 lg:mt-0">
                                 <PaymentMethod
@@ -218,7 +237,7 @@ const LoanCalculator = () => {
                 </div>
                 <div className="col-span-12 lg:col-span-6 bg-inherit">
                     <div className="flex bg-inherit flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
-                        <CarCard filteredCars={filteredCars} />
+                        <CarCard filteredCars={filteredCars} currentPage={currentPage} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage}/>
                     </div>
                 </div>
                 <div className="sm:col-span-12 lg:col-span-2 bg-inherit">
@@ -229,12 +248,17 @@ const LoanCalculator = () => {
                             fuelsData={['Gasoline', 'Electric', 'Hybrid', 'Diesel']}
                             maxPrice={maxPrice}
                             minPrice={minPrice}
+                            onFilterPageChange ={handleFilterPageChange}
                             /*minMileage={minMileage}
                             maxMileage={maxMileage}*/
                         />
                     </div>
                 </div>
             </div>
+            </>
+        ) : (
+            <LoadingSpinner />
+        )}
         </>
     );
 }

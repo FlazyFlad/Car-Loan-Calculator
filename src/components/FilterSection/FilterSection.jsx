@@ -4,7 +4,7 @@ import './FilterSection.css';
 import { ThemeContext } from '../../Context';
 import {FaSearch} from "react-icons/fa";
 
-const FilterSection = ({ onFilterChange, modelsData, fuelsData, maxPrice, minPrice, minMileage, maxMileage }) => {
+const FilterSection = ({ onFilterChange, modelsData, fuelsData, maxPrice, minPrice, minMileage, maxMileage, onFilterPageChange  }) => {
   const { theme } = useContext(ThemeContext);
   const [selectedModelOptions, setSelectedModelOptions] = useState([]);
   const [selectedFuelOptions, setSelectedFuelOptions] = useState([]);
@@ -32,7 +32,6 @@ const FilterSection = ({ onFilterChange, modelsData, fuelsData, maxPrice, minPri
     setSearchInput(event.target.value);
   };
 
-  
 
   const handleApplyFilters = () => {
     const filters = {
@@ -43,6 +42,7 @@ const FilterSection = ({ onFilterChange, modelsData, fuelsData, maxPrice, minPri
         searchInput: searchInput, 
       };
     onFilterChange(filters);
+    onFilterPageChange();
   };
 
   const handleResetFilters = () => {
@@ -51,7 +51,20 @@ const FilterSection = ({ onFilterChange, modelsData, fuelsData, maxPrice, minPri
     setSelectedPriceRange({ min: minPrice, max: maxPrice });
     setSelectedMileageRange({ min: minMileage, max: maxMileage });
     setResetSliders(true);
-  };  
+    setSearchInput('');
+  
+    const filters = {
+      models: [],
+      fuels: [],
+      priceRange: { min: minPrice, max: maxPrice },
+      mileageRange: { min: minMileage, max: maxMileage },
+      searchInput: '',
+    };
+  
+    onFilterChange(filters);
+    onFilterPageChange();
+  };
+  
 
   useEffect(() => {
     setResetSliders(false); // Reset the state after the effect runs
