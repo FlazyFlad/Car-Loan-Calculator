@@ -30,19 +30,20 @@ const BankModal = ({isOpen, onClose}) => {
             onClose={onClose}
             backdrop="blur"
             size="5xl"
+            className={`${theme ? 'dark-theme' : 'light-theme'}`}
         >
-            <ModalContent className={`${theme ? 'dark-theme' : 'light-theme'} flex flex-col gap-4`}>
+            <ModalContent className={`${theme ? 'dark-theme' : 'light-theme'} flex flex-col`}>
                 {(onClose) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1 text-3xl border-none text-dark">{modalTitle}</ModalHeader>
-                        <ModalBody className='overflow-scroll'>
+                        <ModalHeader className={`${theme ? 'dark-theme' : 'light-theme'} flex flex-col gap-1 text-3xl border-none `}>{modalTitle}</ModalHeader>
+                        <ModalBody className={`${theme ? 'dark-theme' : 'light-theme'} `}>
                             {bankDataLoading ? (
                                 <LoadingSpinner />
                                 ) : (
                                 <div className="scrollable-list flex gap-4 flex-wrap">
                                     {banks?.map((bank, index) => (
                                         <div key={index}
-                                             className="flex flex-col gap-2 border overflow-scroll border-gray-600 rounded-xl p-2 text-gray-600 text-sm hover:shadow-md hover:scale-100 hover:cursor-pointer">
+                                             className="flex flex-col gap-2 border border-gray-600 rounded-xl p-2 text-gray-600 text-sm hover:shadow-md hover:scale-100 hover:cursor-pointer">
                                             <div className="flex flex-row gap-1 items-center">
                                                 <img src={bank?.image} className="h-10 w-10 rounded-full"/>
                                                 <div className="font-semibold">{bank?.name}</div>
@@ -102,19 +103,22 @@ const BankModal = ({isOpen, onClose}) => {
                                 </div>
                             )}
                         </ModalBody>
-                        <ModalFooter className="border-none">
+                        <ModalFooter className={`${theme ? 'dark-theme' : 'light-theme'} border-none `}>
                             <Button
                                 variant="ghost"
                                 color="error"
                                 auto
                                 onClick={onClose}
+                                className="ctaa-button"
                             >
                                 Cancel
                             </Button>
                             <Button
                                 color="success"
                                 auto
+                                background
                                 onClick={onClose}
+                                className={`${theme ? 'dark-text-color' : 'dark-text-color'}`}
                             >
                                 Confirm
                             </Button>
