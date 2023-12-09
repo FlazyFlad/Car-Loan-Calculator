@@ -72,6 +72,7 @@ const Register = () => {
                         <input
                             type="email"
                             name="email"
+                            className='text-dark'
                             placeholder="Email"
                             value={formData.email}
                             onChange={handleInputChange}
@@ -79,6 +80,7 @@ const Register = () => {
                         />
 
                         <input
+                            className='text-dark'
                             type="password"
                             name="password"
                             placeholder="Password"
@@ -88,6 +90,7 @@ const Register = () => {
                         />
 
                         <input
+                            className='text-dark'
                             type="password"
                             name="password2"
                             placeholder="Repeat Password"
@@ -97,6 +100,7 @@ const Register = () => {
                         />
 
                         <input
+                            className='text-dark'
                             type="text"
                             name="first_name"
                             placeholder="First Name"
@@ -106,6 +110,7 @@ const Register = () => {
                         />
 
                         <input
+                            className='text-dark'
                             type="text"
                             name="last_name"
                             placeholder="Last Name"
@@ -115,6 +120,7 @@ const Register = () => {
                         />
 
                         <input
+                            className='text-dark'
                             type="text"
                             pattern="[0-9]*"
                             inputMode="numeric"
@@ -126,6 +132,7 @@ const Register = () => {
                         />
 
                         <input
+                            className='text-dark'
                             type="date"
                             name="date_birth"
                             value={formData.data_birth}
