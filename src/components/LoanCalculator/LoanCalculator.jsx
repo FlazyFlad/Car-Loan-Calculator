@@ -15,6 +15,9 @@ import { getCars } from "../../actions/getCarsAction";
 import CarCard from "../carCard/CarCard";
 import FilterSection from '../FilterSection/FilterSection';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import {getBanks} from "../../actions/bankActions";
+import BankModal from "../bank/BankModal";
+import {useDisclosure} from "@nextui-org/react";
 
 const LoanCalculator = () => {
 
@@ -38,6 +41,10 @@ const LoanCalculator = () => {
     const [totalLoanAmount, setTotalLoanAmount] = useState(0);
 
     const carData = useSelector((state) => state.cars?.cars);
+
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
 
     console.log("cars:", JSON.stringify(carData));
 
@@ -64,6 +71,10 @@ const LoanCalculator = () => {
     };
 
     const handleLogs = () => {
+        dispatch(getBanks()).then(r => console.log(r));
+
+        onOpen();
+
         const loanDetails = {
             carValue: carValue.toString(),
             totalLoanAmount: totalLoanAmount.toFixed(2),
@@ -129,6 +140,7 @@ const LoanCalculator = () => {
       const handleFilterPageChange = () => {
         setCurrentPage(1);
       };
+
 
     const calculateLoanDetails = () => {
         const downPayment = carValue * 0.1;
@@ -259,6 +271,7 @@ const LoanCalculator = () => {
         ) : (
             <LoadingSpinner />
         )}
+            <BankModal isOpen={isOpen} onClose={onClose} />
         </>
     );
 }

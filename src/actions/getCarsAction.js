@@ -20,7 +20,9 @@ const getCarsFailure = (error) => {
     };
 };
 
-const baseUrl = process.env.REACT_APP_API_URL;
+//const baseUrl = process.env.REACT_APP_API_URL;
+
+const baseUrl = 'https://cale.pythonanywhere.com/api/v1';
 
 console.log("baseUrl:", baseUrl);
 

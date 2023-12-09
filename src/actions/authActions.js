@@ -1,4 +1,3 @@
-// authActions.js
 import axios from 'axios';
 
 const baseUrl = "https://cale.pythonanywhere.com";
