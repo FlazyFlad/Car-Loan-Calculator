@@ -10,10 +10,12 @@ import { Navigate } from 'react-router-dom';
 const Login = () => {
     const { theme } = useContext(ThemeContext);
     const dispatch = useDispatch();
-    const authError = useSelector(state => state.auth.error);
-    const accessToken = useSelector(state => state.auth.access_token);
-    const userDetails = useSelector(state => state.auth.user);
-    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const authError = useSelector(state => state.auth?.error?.detail);
+    const accessToken = useSelector(state => state?.auth.access_token);
+    const userDetails = useSelector(state => state?.auth.user);
+    const isLoggedIn = useSelector(state => state?.auth.isLoggedIn);
+
+    console.log('authError', authError)
 
     const [formData, setFormData] = useState({
         username: '',
@@ -50,12 +52,12 @@ const Login = () => {
         <>
             <div className="login-container">
                 <div className={`form-container ${theme ? 'darker-theme' : 'lighter-theme'}`}>
-                    <h2>Login to Your Account</h2> <br />
+                    <h2 className='font-semibold'>Login to Your Account</h2> <br />
                     <form id="login-form" className="form" onSubmit={handleSubmit}>
-                        <input className={`${theme ? 'dark-text-color' : 'dark-text-color'}`} onChange={handleInput} type="text" name="username" placeholder="Username" value={formData.username} required />
-                        <input className={`${theme ? 'dark-text-color' : 'dark-text-color'}`} onChange={handleInput} type="password" name='password' placeholder="Password" value={formData.password} required />
+                        <input className={`${theme ? 'dark-text-color' : 'dark-text-color'} text-dark`} onChange={handleInput} type="text" name="username" placeholder="Username" value={formData.username} required />
+                        <input className={`${theme ? 'dark-text-color' : 'dark-text-color'} text-dark`} onChange={handleInput} type="password" name='password' placeholder="Password" value={formData.password} required />
                         <button type="submit" className="ctaa-button">Login</button>
-                        {authError && <div>{authError}</div>}
+                        {authError && <p className='text-red-500 text-sm'>{authError}</p>}
                         <p >Don't have an account?
                             <Link style={{ marginLeft: '5px' }} to="/register">
                                 Register

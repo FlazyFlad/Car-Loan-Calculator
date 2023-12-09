@@ -9,6 +9,11 @@ const initialState = {
     registering: false,
     registerError: null,
     registrationSuccess: false,
+
+    updateProfileError: null,
+    updateProfileSuccess: false,
+    updateProfileLoading: false,
+
 };
 
 const authReducer = (state = initialState, action) => {
@@ -91,23 +96,27 @@ const authReducer = (state = initialState, action) => {
         case 'UPDATE_USER_REQUEST':
             return {
                 ...state,
-                loading: true,
-                error: null,
+                updateProfileLoading: true,
+                updateProfileError: null,
+                updateProfileSuccess: false,
             };
         case 'UPDATE_USER_SUCCESS':
             return {
                 ...state,
-                loading: false,
-                user: action.payload,
+                updateProfileLoading: false,
+                updateProfileError: null,
+                updateProfileSuccess: true,
+                user: action.payload.user,
             };
-        case 'UPDATE_USER_FAILURE':
-            return {
-                ...state,
-                loading: false,
-                error: action.payload.error,
-            };
-        default:
-            return state;
+            case 'UPDATE_USER_FAILURE':
+                return {
+                    ...state,
+                    updateProfileLoading: false,
+                    updateProfileError: action.payload.error,
+                    updateProfileSuccess: false,
+                };
+            default:
+                return state;
     }
 };
 

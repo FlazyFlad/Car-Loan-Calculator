@@ -10,9 +10,9 @@ const Register = () => {
     const { theme } = useContext(ThemeContext);
 
     const dispatch = useDispatch();
-    const registering = useSelector((state) => state.auth.registering);
-    const registerError = useSelector((state) => state.auth.registerError);
-    const registrationSuccess = useSelector((state) => state.auth.registrationSuccess);
+    const registering = useSelector((state) => state.auth?.registering);
+    const registerError = useSelector((state) => state.auth?.registerError);
+    const registrationSuccess = useSelector((state) => state.auth?.registrationSuccess);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -23,6 +23,8 @@ const Register = () => {
         iin: '',
         data_birth: '',
     });
+
+    console.log('registerError', registerError)
 
     const handleDateChange = (e) => {
         const selectedDate = e.target.value;
@@ -157,7 +159,7 @@ const Register = () => {
                         <button type="submit" className="ctaa-button" disabled={registering}>
                             {registering ? 'Registering...' : 'Register'}
                         </button>
-                        {registerError && <p className="error-message">{registerError}</p>}
+                        {registerError && <p className="text-red-500 text-sm">{registerError}</p>}
                         <p>Already have an account?
                             <Link style={{ marginLeft: '5px' }} to="/login">
                                 Login

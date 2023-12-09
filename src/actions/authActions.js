@@ -80,8 +80,11 @@ export const login = (username, password) => {
 
             dispatch(getUserDetails(accessToken));
         } catch (error) {
-            dispatch(loginFailure(error.message));
+            if (error.response) {
 
+                console.error('Error response:', error.response.data)
+            }
+            dispatch(loginFailure(error.response.data));
             const isLoggedIn = false
 
             dispatch({
@@ -129,6 +132,9 @@ export const register = (userData) => {
             dispatch(registerSuccess(response.data));
 
         } catch (error) {
+            if (error.response) {
+                console.error('Error response:', error.response.data)
+            }
             dispatch(registerFailure(error.message));
         }
     };
@@ -152,6 +158,9 @@ export const updateUser = (userData, accessToken) => {
 
             dispatch(updateUserSuccess(response.data));
         } catch (error) {
+            if (error.response) {
+                console.error('Error response:', error.response.data, typeof error.response.data);
+            }
             dispatch(updateUserFailure(error.message));
         }
     };

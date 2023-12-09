@@ -9,11 +9,11 @@ import { updateUser } from '../../actions/authActions';
 const Profile = () => {
     const dispatch = useDispatch();
     const { theme } = useContext(ThemeContext);
-    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
-    const userDetails = useSelector(state => state.auth.user);
-    const accessToken = useSelector(state => state.auth.access_token);
-    const user = useSelector(state => state.auth.user);
-    const err = useSelector(state => state.auth.error);
+    const isLoggedIn = useSelector(state => state.auth?.isLoggedIn);
+    const userDetails = useSelector(state => state.auth?.user);
+    const accessToken = useSelector(state => state.auth?.access_token);
+    const user = useSelector(state => state.auth?.user);
+    const updateProfileError = useSelector(state => state.auth?.updateProfileError);
 
     const [menuActive, setMenuActive] = useState(false);
 
@@ -26,6 +26,8 @@ const Profile = () => {
         email: '',
         picture: null,
     });
+
+    console.log('updateProfileError', updateProfileError, typeof updateProfileError)
 
     const handleDateChange = (e) => {
         const selectedDate = e.target.value;
@@ -69,12 +71,12 @@ const Profile = () => {
 
     useEffect(() => {
         setFormData({
-            data_birth: userDetails.data_birth || '',
-            username: userDetails.username || '',
-            first_name: userDetails.first_name || '',
-            iin: userDetails.iin || '',
-            last_name: userDetails.last_name || '',
-            email: userDetails.email || '',
+            data_birth: userDetails?.data_birth || '',
+            username: userDetails?.username || '',
+            first_name: userDetails?.first_name || '',
+            iin: userDetails?.iin || '',
+            last_name: userDetails?.last_name || '',
+            email: userDetails?.email || '',
             picture: null,
         });
     }, [userDetails]);
@@ -185,6 +187,8 @@ const Profile = () => {
                                     {/* <div className="col-md-12"><label className="labels">Additional Details</label><input type="text" className="form-control" placeholder="additional details" /></div> */}
                                 </div>
                             </div>
+
+                            {updateProfileError && <p className='text-red-500 text-sm'>{updateProfileError}</p>}
 
                             <div className="button-section"><button className="ctaa-button" type="submit">Save Profile</button></div>
                         </div>
