@@ -6,6 +6,7 @@ const initialState = {
     loading: false,
     error: null,
     user: null,
+
     registering: false,
     registerError: null,
     registrationSuccess: false,
@@ -87,6 +88,7 @@ const authReducer = (state = initialState, action) => {
             };
 
         case 'REGISTER_FAILURE':
+            console.log('REGISTER_FAILURE', action.payload.error)
             return {
                 ...state,
                 registering: false,

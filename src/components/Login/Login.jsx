@@ -54,8 +54,8 @@ const Login = () => {
                 <div className={`form-container ${theme ? 'darker-theme' : 'lighter-theme'}`}>
                     <h2 className='font-semibold'>Login to Your Account</h2> <br />
                     <form id="login-form" className="form" onSubmit={handleSubmit}>
-                        <input className={`${theme ? 'dark-text-color' : 'dark-text-color'} text-dark`} onChange={handleInput} type="text" name="username" placeholder="Username" value={formData.username} required />
-                        <input className={`${theme ? 'dark-text-color' : 'dark-text-color'} text-dark`} onChange={handleInput} type="password" name='password' placeholder="Password" value={formData.password} required />
+                        <input onChange={handleInput} type="text" name="username" placeholder="Username" value={formData.username} required />
+                        <input onChange={handleInput} type="password" name='password' placeholder="Password" value={formData.password} required />
                         <button type="submit" className="ctaa-button">Login</button>
                         {authError && <p className='text-red-500 text-sm'>{authError}</p>}
                         <p >Don't have an account?

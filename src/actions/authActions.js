@@ -133,7 +133,7 @@ export const register = (userData) => {
 
         } catch (error) {
             if (error.response) {
-                console.error('Error response:', error.response.data)
+                console.error('Error response:', error.response.data, typeof error.response.data)
             }
             dispatch(registerFailure(error.message));
         }
