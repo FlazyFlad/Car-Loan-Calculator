@@ -33,7 +33,7 @@ export const getCars = () => {
         try {
             const response = await axios.get(`${baseUrl}/car`);
             dispatch(getCarsSuccess(response.data));
-            console.log('Success:', JSON.stringify(response.data));
+            //console.log('Success:', JSON.stringify(response.data));
         } catch (error) {
             if (error.response) {
                 console.error('Error response:', error.response.data)

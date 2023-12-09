@@ -21,7 +21,7 @@ const CarCard = ({filteredCars, currentPage, itemsPerPage, setCurrentPage}) => {
         pageNumbers.push(i);
     }
     
-    console.log('cars', filteredCars);
+    //console.log('cars', filteredCars);
 
     const currentPageNumberStyles = 'font-bold text-lg';
 

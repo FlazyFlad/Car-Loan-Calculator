@@ -27,7 +27,7 @@ export const getBanks = () => {
         try {
             const response = await axios.get('https://cale.pythonanywhere.com/api/v1/bank');
             dispatch(getBanksSuccess(response.data));
-            console.log('Banks from action:', JSON.stringify(response.data));
+            //console.log('Banks from action:', JSON.stringify(response.data));
         } catch (error) {
             if (error.response) {
                 console.error('Error response:', error.response.data)

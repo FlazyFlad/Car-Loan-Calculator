@@ -13,3 +13,8 @@ Footer {
 /* .app-spacer {
     min-height: 110vh;
 } */
+
+.scrollable-list {
+    max-height: 600px;
+    overflow-y: auto;
+}

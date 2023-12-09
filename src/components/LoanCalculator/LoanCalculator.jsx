@@ -42,11 +42,9 @@ const LoanCalculator = () => {
 
     const carData = useSelector((state) => state.cars?.cars);
 
-
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-
-    console.log("cars:", JSON.stringify(carData));
+    //console.log("cars:", JSON.stringify(carData));
 
     const separateThousands = (value) => {
         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
@@ -77,12 +75,14 @@ const LoanCalculator = () => {
 
         const loanDetails = {
             carValue: carValue.toString(),
+            term: selectedTerm,
+            initialPayment: initialPaymentValue.toString(),
             totalLoanAmount: totalLoanAmount.toFixed(2),
             monthlyPayment: monthlyPayment.toFixed(2),
             interestRate: interestRate.toString()
         }
 
-        console.log(JSON.stringify(loanDetails));
+        console.log('Entered data', JSON.stringify(loanDetails));
     }
 
     useEffect(() => {
