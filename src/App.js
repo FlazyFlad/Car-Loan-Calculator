@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from "./components/Header/Header";
-import {Route, Routes, useNavigate  } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import HeroSection from "./components/HeroSection/HeroSection";
 import Login from "./components/Login/Login";
 import Register from "./components/Register/Register";
@@ -15,50 +15,53 @@ import { useDispatch, useSelector } from 'react-redux';
 import { checkAuthStatus, logout } from './actions/authActions';
 
 function App() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const isFavoriteNavOpen = useSelector((state) => (state.favorite.isFavoriteNavOpen));
 
-    // const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
-    const [theme, setTheme] = useState(true);
+  // const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
+  const [theme, setTheme] = useState(true);
 
-    const handleChangeTheme = () => {
-        setTheme(prevTheme => !prevTheme);
-      };
+  const handleChangeTheme = () => {
+    setTheme(prevTheme => !prevTheme);
+  };
 
-    // useEffect(() => {
-    //     setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
-    // }, []);
+  // useEffect(() => {
+  //     setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
+  // }, []);
 
-    // useEffect(() => {
-    //     dispatch(checkAuthStatus(accessToken));
-    //   }, [dispatch]);
-    
-      const handleLogout = () => {
-        dispatch(logout());
-      };
+  // useEffect(() => {
+  //     dispatch(checkAuthStatus(accessToken));
+  //   }, [dispatch]);
 
-    return (
-        <ThemeContext.Provider value={{ theme, handleChangeTheme }}>
-                <div className={`app-container ${theme ? 'light-bgc-color' : 'dark-bgc-color'}`}>
-                    <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-                    <div className={`app-spacer ${theme ? 'light-bgc-color' : 'dark-bgc-color'}`}>
-                    <Routes>
-                        <Route path="/" element={<HeroSection />}/>
-                        <Route path="/login" element={<Login />}/>
-                        <Route path="/register" element={<Register />}/>
-                        <Route path="/about-us" element={<AboutUs />}/>
-                        <Route path="/loan-calculator" element={<LoanCalculator />}/>
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
-                        <Route path="/profile" element={<Profile />} />
+  return (
+    <ThemeContext.Provider value={{ theme, handleChangeTheme }}>
+      <div className={`app-container ${theme ? 'light-bgc-color' : 'dark-bgc-color'}`}>
 
-                        <Route path="*" element={<NotFoundPage />} />
-                    </Routes>
-                    </div>
-                    <Footer />
-                </div>
-        </ThemeContext.Provider>
-    );
+        <div className={`${isFavoriteNavOpen ? 'cover' : ''}`}></div>
+        <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+        <div className={`app-spacer ${theme ? 'light-bgc-color' : 'dark-bgc-color'}`}>
+          <Routes>
+            <Route path="/" element={<HeroSection />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/loan-calculator" element={<LoanCalculator />} />
+
+            <Route path="/profile" element={<Profile />} />
+
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </ThemeContext.Provider>
+  );
 };
 
 export default App;

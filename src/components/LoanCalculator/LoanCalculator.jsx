@@ -15,9 +15,11 @@ import { getCars } from "../../actions/getCarsAction";
 import CarCard from "../carCard/CarCard";
 import FilterSection from '../FilterSection/FilterSection';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
-import {getBanks} from "../../actions/bankActions";
+import { getBanks } from "../../actions/bankActions";
 import BankModal from "../bank/BankModal";
-import {useDisclosure} from "@nextui-org/react";
+import { useDisclosure } from "@nextui-org/react";
+import FavoriteComponent from '../Favorites/FavoriteComponent';
+import { addToFavorites, fetchFavorites, removeFromFavorites, toggleFavoriteNav } from '../../actions/favoriteActions';
 
 const LoanCalculator = () => {
 
@@ -35,6 +37,9 @@ const LoanCalculator = () => {
     const [fullRate, setFullRate] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 4;
+    const favoriteItems = useSelector((state) => (state.favorite.favoriteItems));
+    const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+    const accessToken = useSelector(state => state?.auth.access_token);
     //const [rate, setRate] = useState(21);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -87,14 +92,19 @@ const LoanCalculator = () => {
 
     useEffect(() => {
         dispatch(getCars())
-          .then(() => {
-            setIsLoading(false);
-          })
-          .catch((error) => {
-            console.error('Error fetching car data:', error);
-            setIsLoading(false);
-          });
-      }, [dispatch]);
+            .then(() => {
+                setIsLoading(false);
+            })
+            .catch((error) => {
+                console.error('Error fetching car data:', error);
+                setIsLoading(false);
+            });
+    }, [dispatch]);
+
+    useEffect(() => {
+        dispatch(fetchFavorites());
+    }, [dispatch]);
+
 
     useEffect(() => {
         if (carData && Array.isArray(carData)) {
@@ -114,32 +124,32 @@ const LoanCalculator = () => {
 
     const handleFilterChange = (filters, callback) => {
         const { models, fuels, priceRange, mileageRange, searchInput } = filters;
-      
+
         const updatedFilteredCars = carData.filter((car) => {
-          const passesModelFilter = models?.length === 0 || models?.includes(car?.name);
-          const passesFuelFilter = fuels?.length === 0 || fuels?.includes(car?.fuel);
-          const passesPriceFilter =
-            car?.price >= priceRange?.min && car?.price <= priceRange?.max;
-          /*const passesMileageFilter =
-            parseInt(car?.mileage?.replace(' miles', ''), 10) >= mileageRange?.min &&
-            parseInt(car?.mileage?.replace(' miles', ''), 10) <= mileageRange?.max;*/
-          const passesSearchFilter =
-            !searchInput || new RegExp(searchInput, 'i').test(car?.name);
-      
-          return (
-            passesModelFilter &&
-            passesFuelFilter &&
-            passesPriceFilter /*passesMileageFilter*/ &&
-            passesSearchFilter
-          );
+            const passesModelFilter = models?.length === 0 || models?.includes(car?.name);
+            const passesFuelFilter = fuels?.length === 0 || fuels?.includes(car?.fuel);
+            const passesPriceFilter =
+                car?.price >= priceRange?.min && car?.price <= priceRange?.max;
+            /*const passesMileageFilter =
+              parseInt(car?.mileage?.replace(' miles', ''), 10) >= mileageRange?.min &&
+              parseInt(car?.mileage?.replace(' miles', ''), 10) <= mileageRange?.max;*/
+            const passesSearchFilter =
+                !searchInput || new RegExp(searchInput, 'i').test(car?.name);
+
+            return (
+                passesModelFilter &&
+                passesFuelFilter &&
+                passesPriceFilter /*passesMileageFilter*/ &&
+                passesSearchFilter
+            );
         });
 
-        setFilteredCars(updatedFilteredCars, callback); 
-      };
-    
-      const handleFilterPageChange = () => {
+        setFilteredCars(updatedFilteredCars, callback);
+    };
+
+    const handleFilterPageChange = () => {
         setCurrentPage(1);
-      };
+    };
 
 
     const calculateLoanDetails = () => {
@@ -172,105 +182,148 @@ const LoanCalculator = () => {
         calculateLoanDetails();
     }, [carValue, selectedTerm, selectedCar, selectedMethod, interestRate]);
 
+    const handleRemoveItem = (carId) => {
+        dispatch(removeFromFavorites(carId));
+    };
+
+    const handleToggleFavoriteNav = () => {
+        dispatch(toggleFavoriteNav());
+    };
+
+    const handleAddToFavorites = async (carId) => {
+        dispatch(addToFavorites(carId))
+    };
+
+    const isProductInFavorites = (carId) => {
+        return favoriteItems.some((favoriteItem) => favoriteItem.car_details.id === carId);
+    };
+
     return (
         <>
-        {!isLoading ? (
-            <>
-            <TitleText
-                titleText="Car Loan Calculator"
-                subTitleText="Calculate your monthly car repayments as well as total payment and total interest based on vehicle price."
-            />
-            <div className='lg:grid lg:grid-cols-12 lg:gap-24 lg:items-start sm:grid-cols-1 sm:gap-4 sm:justify-center'>
-                <div className="calculator-container col-span-12 lg:col-span-3 lg:align-self">
-                    <div className="calculator-container" >
-                        <div className="calculator flex flex-col gap-4 items-center lg:gap-8 lg:items-start w-full">
-                             <CarCost
-                                value={formattedCarValue}
-                                onChange={(e) => handleCarCostChange(e)}
-                                circValue={carValue}
-                                circOnchange={(value) => setCarValue(value)}
-                                formatNumber={formatNumber}
-                            />
-                            <InitialPayment
-                                paymentValue={initialPaymentValue}
-                                handlePaymentChange={(e) => {
-                                    const newPaymentValue = Number(e.target.value.replace(/,/g, '').replace(/\s+/g, ''));
-                                    setCarValue(newPaymentValue / 0.1);
-                                }}
-                                circleValue={formatNumber(carValue * 0.1)}
-                                circleOnChange={(value) => setCarValue(value / 0.1)}
-                                formatNumber={formatNumber}
-                            />
-                        </div>
-                        <div className="flex flex-col gap-4 items-center mt-2 lg:gap-8 lg:items-start lg:mt-8 w-full">
-                            <div className="flex flex-col sm:w-full">
-                                <LoanTermSelector
-                                    setSelectedTerm={setSelectedTerm}
-                                    selectedTerm={selectedTerm}
-                                    onTermChange={() => calculateLoanDetails()}
-                                />
+            {!isLoading ? (
+                <>
+                    <TitleText
+                        titleText="Car Loan Calculator"
+                        subTitleText="Calculate your monthly car repayments as well as total payment and total interest based on vehicle price."
+                    />
+                    <div className='lg:grid lg:grid-cols-12 lg:gap-24 lg:items-start sm:grid-cols-1 sm:gap-4 sm:justify-center'>
+                        <div className="calculator-container col-span-12 lg:col-span-3 lg:align-self">
+                            <div className="calculator-container" >
+                                <div className="calculator flex flex-col gap-4 items-center lg:gap-8 lg:items-start w-full">
+                                    <CarCost
+                                        value={formattedCarValue}
+                                        onChange={(e) => handleCarCostChange(e)}
+                                        circValue={carValue}
+                                        circOnchange={(value) => setCarValue(value)}
+                                        formatNumber={formatNumber}
+                                    />
+                                    <InitialPayment
+                                        paymentValue={initialPaymentValue}
+                                        handlePaymentChange={(e) => {
+                                            const newPaymentValue = Number(e.target.value.replace(/,/g, '').replace(/\s+/g, ''));
+                                            setCarValue(newPaymentValue / 0.1);
+                                        }}
+                                        circleValue={formatNumber(carValue * 0.1)}
+                                        circleOnChange={(value) => setCarValue(value / 0.1)}
+                                        formatNumber={formatNumber}
+                                    />
+                                </div>
+                                <div className="flex flex-col gap-4 items-center mt-2 lg:gap-8 lg:items-start lg:mt-8 w-full">
+                                    <div className="flex flex-col sm:w-full">
+                                        <LoanTermSelector
+                                            setSelectedTerm={setSelectedTerm}
+                                            selectedTerm={selectedTerm}
+                                            onTermChange={() => calculateLoanDetails()}
+                                        />
 
-                            </div>
-                            <div className="flex flex-wrap justify-between gap-8 mt-2 w-full">
-                                <CarChoice
-                                    selectedCar={selectedCar}
-                                    setSelectedCar={setSelectedCar}
-                                    onCarTypeChange={() => calculateLoanDetails()}
-                                />
-                            </div>
-                        </div>
-                        <div className="flex flex-col gap-4 items-center mt-2 lg:gap-8 lg:items-start lg:mt-8 w-full">
-                            <div className="flex flex-col w-full mt-2 lg:mt-0">
-                                <PaymentMethod
-                                    selectedMethod={selectedMethod}
-                                    setSelectedMethod={setSelectedMethod}
-                                    onRepaymentMethodChange={() => calculateLoanDetails()}
-                                />
-                            </div>
-                            <div className="flex flex-col w-full gap-4">
-                                <RateAndLoan
-                                    isUsed={selectedCar === 'used'}
-                                    principal={carValue - (carValue * 0.1)}
-                                    loanTerm={selectedTerm}
-                                    totalLoanAmount={totalLoanAmount}
-                                    rate={interestRate}
-                                    setRate={setInterestRate}
-                                />
+                                    </div>
+                                    <div className="flex flex-wrap justify-between gap-8 mt-2 w-full">
+                                        <CarChoice
+                                            selectedCar={selectedCar}
+                                            setSelectedCar={setSelectedCar}
+                                            onCarTypeChange={() => calculateLoanDetails()}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-4 items-center mt-2 lg:gap-8 lg:items-start lg:mt-8 w-full">
+                                    <div className="flex flex-col w-full mt-2 lg:mt-0">
+                                        <PaymentMethod
+                                            selectedMethod={selectedMethod}
+                                            setSelectedMethod={setSelectedMethod}
+                                            onRepaymentMethodChange={() => calculateLoanDetails()}
+                                        />
+                                    </div>
+                                    <div className="flex flex-col w-full gap-4">
+                                        <RateAndLoan
+                                            isUsed={selectedCar === 'used'}
+                                            principal={carValue - (carValue * 0.1)}
+                                            loanTerm={selectedTerm}
+                                            totalLoanAmount={totalLoanAmount}
+                                            rate={interestRate}
+                                            setRate={setInterestRate}
+                                        />
 
-                                <CarLoanEstimate
-                                    monthlyPayment={monthlyPayment}
-                                    interestRate={interestRate}
-                                    fullRate={fullRate}
+                                        <CarLoanEstimate
+                                            monthlyPayment={monthlyPayment}
+                                            interestRate={interestRate}
+                                            fullRate={fullRate}
+                                        />
+                                        <ApprovalButton handleLogs={handleLogs} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-span-12 lg:col-span-6 bg-inherit">
+
+                            <div className="icons-section">
+                                <div className="left-icons">
+                                    <div className="s-nav">
+                                        <i class={`s-icon fa-solid fa-bars ${theme ? 'dark-text-color' : 'light-text-color'}`}></i>
+                                    </div>
+                                    {/* <div className={`dropdown-content dropdown-content${theme ? '-dark dark-section' : '-light light-section'}`}>
+                                                <div onClick={() => handleSortChange('descending')}>Descending Price</div>
+                                                <div onClick={() => handleSortChange('ascending')}>Ascending Price</div>
+                                                <div onClick={() => handleSortChange('popularity')}>By Popularity</div>
+                                                <div onClick={() => handleSortChange('relevancy')}>By Relevancy</div>
+                                            </div> */}
+                                </div>
+                                {isLoggedIn && (
+                                    <div className="right-icons">
+                                        <div className="s-nav" style={{ marginRight: "5px" }}>
+                                            <i onClick={(handleToggleFavoriteNav)} className={`s-icon fas fa-heart ${theme ? 'dark-text-color' : 'light-text-color'}`}></i>
+                                            {favoriteItems.length > 0 &&
+                                                <span className="s-total-qty">{favoriteItems.length ? favoriteItems.length : ''}</span>
+                                            }
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+
+                            <div className="flex bg-inherit flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
+                                <FavoriteComponent favoriteItems={favoriteItems} handleRemoveItem={handleRemoveItem} />
+                                <CarCard filteredCars={filteredCars} currentPage={currentPage} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} handleAddToFavorites={handleAddToFavorites} handleRemoveItem={handleRemoveItem} isProductInFavorites={isProductInFavorites} />
+                            </div>
+                        </div>
+                        <div className="sm:col-span-12 lg:col-span-2 bg-inherit">
+                            <div className="flex bg-inherit flex-col gap-4 items-start lg:items-start w-full">
+                                <FilterSection
+                                    onFilterChange={handleFilterChange}
+                                    modelsData={carData?.map((car) => car?.name)}
+                                    fuelsData={['Gasoline', 'Electric', 'Hybrid', 'Diesel']}
+                                    maxPrice={maxPrice}
+                                    minPrice={minPrice}
+                                    onFilterPageChange={handleFilterPageChange}
+                                /*minMileage={minMileage}
+                                maxMileage={maxMileage}*/
                                 />
-                                <ApprovalButton handleLogs={handleLogs} />
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="col-span-12 lg:col-span-6 bg-inherit">
-                    <div className="flex bg-inherit flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
-                        <CarCard filteredCars={filteredCars} currentPage={currentPage} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage}/>
-                    </div>
-                </div>
-                <div className="sm:col-span-12 lg:col-span-2 bg-inherit">
-                    <div className="flex bg-inherit flex-col gap-4 items-start lg:items-start w-full">
-                        <FilterSection
-                            onFilterChange={handleFilterChange}
-                            modelsData={carData?.map((car) => car?.name)}
-                            fuelsData={['Gasoline', 'Electric', 'Hybrid', 'Diesel']}
-                            maxPrice={maxPrice}
-                            minPrice={minPrice}
-                            onFilterPageChange ={handleFilterPageChange}
-                            /*minMileage={minMileage}
-                            maxMileage={maxMileage}*/
-                        />
-                    </div>
-                </div>
-            </div>
-            </>
-        ) : (
-            <LoadingSpinner />
-        )}
+                </>
+            ) : (
+                <LoadingSpinner />
+            )}
             <BankModal isOpen={isOpen} onClose={onClose} />
         </>
     );

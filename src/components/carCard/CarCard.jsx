@@ -1,12 +1,12 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FaTag, FaBookmark, FaGasPump, FaTachometerAlt } from 'react-icons/fa';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import defaultImage from '../../assets/images/carDefault.png';
-import {ThemeContext} from "../../Context";
+import { ThemeContext } from "../../Context";
 import cars from '../../data/cars';
 
-const CarCard = ({filteredCars, currentPage, itemsPerPage, setCurrentPage}) => {
+const CarCard = ({ filteredCars, currentPage, itemsPerPage, setCurrentPage, handleAddToFavorites, handleRemoveItem, isProductInFavorites }) => {
     //const cars = useSelector((state) => state.cars?.cars);
     const { theme } = useContext(ThemeContext);
 
@@ -20,7 +20,7 @@ const CarCard = ({filteredCars, currentPage, itemsPerPage, setCurrentPage}) => {
     for (let i = 1; i <= Math.ceil(filteredCars?.length / itemsPerPage); i++) {
         pageNumbers.push(i);
     }
-    
+
     //console.log('cars', filteredCars);
 
     const currentPageNumberStyles = 'font-bold text-lg';
@@ -36,7 +36,25 @@ const CarCard = ({filteredCars, currentPage, itemsPerPage, setCurrentPage}) => {
                         <div>
                             <div className="flex justify-between items-center">
                                 <h2 className="font-bold text-xl mb-2">{car?.name}</h2>
-                                <FaBookmark className="text-gray-600 hover:text-gray-800 cursor-pointer" />
+
+
+
+
+                                <div>
+                                    <FaBookmark className={`${isProductInFavorites(car.id) ? 'text-gray-900' : 'text-gray-600'} hover:text-gray-800 cursor-pointer`}
+                                        onClick={() => {
+                                            const isFavorite = isProductInFavorites(car.id);
+
+                                            if (isFavorite) {
+                                                handleRemoveItem(car.id);
+                                            } else {
+                                                handleAddToFavorites(car.id);
+                                            }
+                                        }} />
+                                </div>
+
+
+
                             </div>
                             <p className={`${theme ? 'dark-theme text-400' : 'light-theme'} text-700 text-xs`}>{car?.description}</p>
                         </div>
@@ -69,7 +87,7 @@ const CarCard = ({filteredCars, currentPage, itemsPerPage, setCurrentPage}) => {
                     <button
                         key={number}
                         onClick={() => paginate(number)}
-                        className={`${currentPageNumberStyles} ${currentPage === number? 'bg-yellow-600' : 'bg-yellow-500'} transition duration-300 ease-in-out hover:bg-yellow-600 p-2 rounded-lg cursor-pointer`}
+                        className={`${currentPageNumberStyles} ${currentPage === number ? 'bg-yellow-600' : 'bg-yellow-500'} transition duration-300 ease-in-out hover:bg-yellow-600 p-2 rounded-lg cursor-pointer`}
                     >
                         {number}
                     </button>
