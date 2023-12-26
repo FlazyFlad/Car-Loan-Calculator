@@ -37,6 +37,7 @@ const Header = () => {
     }, []);
 
     const handleMenuToggle = () => {
+        console.log(showDropdown)
         setShowDropdown(!showDropdown);
     };
 
@@ -64,9 +65,10 @@ const Header = () => {
                                 <i className="fa-solid fa-bars" onClick={handleMenuToggle}></i>
                             </div>
                         )}
-                        {showDropdown && menuActive && (
+                        {menuActive && showDropdown ? (
 
-                            <div className="dropdown-content">
+
+                            <div className={`h-dropdown-content`}>
                                 <ul>
                                     {links.map(link => (
                                         <li key={link.id}>
@@ -78,7 +80,9 @@ const Header = () => {
                                 </ul>
                             </div>
 
-                        )}
+                        ) : (
+                                <></>                    
+                        ) }
                     </div>
 
 
