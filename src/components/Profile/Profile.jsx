@@ -53,9 +53,9 @@ const Profile = () => {
         formData.append('username', userData.username);
         formData.append('first_name', userData.first_name);
         formData.append('last_name', userData.last_name);
-      
+
         if (userData.picture instanceof File) {
-          formData.append('picture', userData.picture);
+            formData.append('picture', userData.picture);
         }
 
         event.preventDefault();
@@ -83,8 +83,10 @@ const Profile = () => {
                             <div className="flex flex-wrap">
                                 <div className="w-full md:w-1/4 border-r">
                                     <div className="flex flex-col items-center text-center p-3 py-5">
-                                        <img src={`https://cale.pythonanywhere.com/${userDetails.picture}`} alt="AvatarLogo" />
-                                        <span className="font-bold">{userDetails.username}</span>
+                                        <div className="p-img-container">
+                                            <img className="p-img" src={`https://cale.pythonanywhere.com/${userDetails.picture}`} alt="AvatarLogo" />
+                                        </div>
+                                        <span className="font-bold">{userDetails.first_name} {userDetails.last_name}</span>
                                         <span className="text-gray-500">{userDetails.email}</span>
 
 
@@ -156,8 +158,10 @@ const Profile = () => {
                                         </div>
                                         <br />
                                         <div className="w-full">
-                                            <label className="labels">Individual identification number</label>
-                                            <p>{userData.iin}</p>
+                                            <label className="labels ">Individual identification number</label>
+                                            <p>{userDetails.iin}</p>
+                                            <label className="labels ">Date of birth</label>
+                                            <p>{userDetails.data_birth}</p>
                                         </div>
                                         <br />
                                     </div>

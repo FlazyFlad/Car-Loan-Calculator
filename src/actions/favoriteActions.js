@@ -26,7 +26,7 @@ export const toggleFavoriteNav = () => ({
 export const fetchFavorites = (token) => async (dispatch, getState) => {
     dispatch(fetchFavoritesRequest());
     try {
-        const response = await axios.get(`${baseUrl}/api/v1/favorites/user_favorites/`, {
+        const response = await axios.get(`${baseUrl}/api/v1/favorites/`, {
             headers: { Authorization: `Bearer ${getState().auth.access_token}` },
         });
         dispatch(fetchFavoritesSuccess(response.data));
