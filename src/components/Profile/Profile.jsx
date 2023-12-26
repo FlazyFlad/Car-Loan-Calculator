@@ -4,7 +4,7 @@ import avatarUrl from './user-avatar.png';
 import { ThemeContext } from '../../Context';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { updateUser } from '../../actions/authActions';
+import { getUserDetails, updateUser } from '../../actions/authActions';
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -17,69 +17,50 @@ const Profile = () => {
 
     const [menuActive, setMenuActive] = useState(false);
 
-    const [formData, setFormData] = useState({
-        data_birth: '',
-        username: '',
-        first_name: '',
-        iin: '',
-        last_name: '',
-        email: '',
-        picture: null,
+    const [userData, setUserData] = useState({
+        username: userDetails?.username || '',
+        first_name: userDetails?.first_name || '',
+        last_name: userDetails?.last_name || '',
     });
 
-    console.log('updateProfileError', updateProfileError, typeof updateProfileError)
+    useEffect(() => {
+        dispatch(getUserDetails())
+            .then(() => {
+            })
+            .catch((error) => {
+                console.error('Error fetching user data:', error);
+            });
+    }, [dispatch]);
 
-    const handleDateChange = (e) => {
-        const selectedDate = e.target.value;
-        setFormData({
-            ...formData,
-            data_birth: selectedDate,
-        });
-    };
 
     const handleInputChange = (event) => {
-        setFormData({
-            ...formData,
-            [event.target.name]: event.target.value
+        setUserData({
+            ...userData,
+            [event.target.name]: event.target.value,
         });
     };
 
     const handleFileChange = (e) => {
-        setFormData({
-            ...formData,
+        setUserData({
+            ...userData,
             picture: e.target.files[0],
         });
     };
-    
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    
+
+    const handleSubmit = (event) => {
         const formData = new FormData();
-        formData.append('data_birth', formData.data_birth);
-        formData.append('username', formData.username);
-        formData.append('first_name', formData.first_name);
-        formData.append('last_name', formData.last_name);
-        formData.append('email', formData.email);
-    
-        if (formData.picture) {
-            formData.append('picture', formData.picture);
+
+        formData.append('username', userData.username);
+        formData.append('first_name', userData.first_name);
+        formData.append('last_name', userData.last_name);
+      
+        if (userData.picture instanceof File) {
+          formData.append('picture', userData.picture);
         }
-    
+
+        event.preventDefault();
         dispatch(updateUser(formData, accessToken));
     };
-    
-
-    useEffect(() => {
-        setFormData({
-            data_birth: userDetails?.data_birth || '',
-            username: userDetails?.username || '',
-            first_name: userDetails?.first_name || '',
-            iin: userDetails?.iin || '',
-            last_name: userDetails?.last_name || '',
-            email: userDetails?.email || '',
-            picture: null,
-        });
-    }, [userDetails]);
 
 
 
@@ -90,110 +71,105 @@ const Profile = () => {
     return (
         !userDetails ? (
             <>
-                <div className="loading-spinner"></div>
+                <div className="profile-body">
+                    <div className="loading-spinner"></div>
+                </div>
             </>
         ) : (
             <>
-                <div className={`container rounded pt-5 pb-5 ${theme ? 'dark-theme' : 'light-theme'}`}>
-                    <form onSubmit={handleSubmit} encType="multipart/form-data">
-                        <div className="row">
-                            <div className="col-md-3 border-right">
-                                <div className="d-flex flex-column align-items-center text-center p-3 py-5">
-                                    <img src={`https://cale.pythonanywhere.com/${userDetails.picture}`} alt="AvatarLogo" />
-                                    <span className="font-weight-bold" value={userDetails.username}> </span>
-                                    <span className="text-50" value={userDetails.email}> </span>
-                                    <input type="file" name="picture" onChange={handleFileChange} />
-                                </div>
-                            </div>
-                            <div className="col-md-5 border-right">
-                                <div className="p-3 py-5">
-                                    <div className="d-flex justify-content-between align-items-center mb-3">
-                                        <h4 className="text-right">Profile Settings</h4>
-                                    </div>
-                                    <div className="row mt-2">
-                                        <div
-                                            className="col-md-6"><label
-                                                className="labels">Name</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="first_name"
-                                                name="first_name"
-                                                value={formData.first_name}
-                                                onChange={handleInputChange}
+                <div className="profile-body">
+                    <div className={`container rounded pt-5 pb-5 ${theme ? 'dark-theme' : 'light-theme'}`} style={{ marginLeft: '9%' }}>
+                        <form onSubmit={handleSubmit} encType="multipart/form-data">
+                            <div className="flex flex-wrap">
+                                <div className="w-full md:w-1/4 border-r">
+                                    <div className="flex flex-col items-center text-center p-3 py-5">
+                                        <img src={`https://cale.pythonanywhere.com/${userDetails.picture}`} alt="AvatarLogo" />
+                                        <span className="font-bold">{userDetails.username}</span>
+                                        <span className="text-gray-500">{userDetails.email}</span>
+
+
+
+                                        <div className="flex items-center justify-center bg-grey-lighter">
+                                            <input type='file' onChange={handleFileChange} name="picture"
+                                                class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input"
                                             />
                                         </div>
 
-                                        <div
-                                            className="col-md-6"><label
-                                                className="labels">Last
-                                                Name</label><input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="last_name"
-                                                name="last_name"
-                                                value={formData.last_name}
-                                                onChange={handleInputChange}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="row mt-3">
-                                        <div
-                                            className="col-md-12"><label
-                                                className="labels">Username
-                                            </label><input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="username"
-                                                name="username"
-                                                value={formData.username}
-                                                onChange={handleInputChange}
-                                            />
-                                        </div>
-                                        <div
-                                            className="col-md-12"><label
-                                                className="labels">Date of Birth
-                                            </label>
-                                            <input
-                                                type="date"
-                                                name="date_birth"
-                                                className="form-control"
-                                                value={formData.data_birth}
-                                                onChange={handleDateChange}
-                                                required
-                                            />
-                                        </div>
-                                        <div
-                                            className="col-md-12"><label
-                                                className="labels">Email
-                                            </label><input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="email"
-                                                name="email"
-                                                value={formData.email}
-                                                onChange={handleInputChange}
-                                            />
-                                        </div>
+
+
+
                                     </div>
                                 </div>
-                            </div>
-                            <div className="col-md-4">
-                                <div className="p-3 py-5">
-                                    <div className="d-flex justify-content-between align-items-center experience"><span>Unchangeable Information</span></div><br />
-                                    <div className="col-md-12"><label className="labels">Individual identification number</label>
-                                        <p>{formData.iin}</p>
-                                    </div> <br />
-                                    {/* <div className="col-md-12"><label className="labels">Additional Details</label><input type="text" className="form-control" placeholder="additional details" /></div> */}
+                                <div className="w-full md:w-1/2 border-r">
+                                    <div className="p-3 py-5">
+                                        <div className="flex justify-between items-center mb-3">
+                                            <h4 className="text-right">Profile Settings</h4>
+                                        </div>
+                                        <div className="flex flex-wrap mt-2">
+                                            <div className="w-full md:w-1/2">
+                                                <label className="labels">Name</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder="first_name"
+                                                    name="first_name"
+                                                    value={userData.first_name}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                            <div className="w-full md:w-1/2">
+                                                <label className="labels">Last Name</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder="last_name"
+                                                    name="last_name"
+                                                    value={userData.last_name}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="flex flex-wrap mt-3">
+                                            <div className="w-full">
+                                                <label className="labels">Username</label>
+                                                <input
+                                                    type="text"
+                                                    className="form-control"
+                                                    placeholder="username"
+                                                    name="username"
+                                                    value={userData.username}
+                                                    onChange={handleInputChange}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="button-section flex items-end justify-center">
+                                        <button className="ctaa-button" type="submit">
+                                            Save Profile
+                                        </button>
+                                    </div>
                                 </div>
+                                <div className="w-full md:w-1/4">
+                                    <div className="p-3 py-5">
+                                        <div className="flex justify-between items-center experience">
+                                            <span>Other Information</span>
+                                        </div>
+                                        <br />
+                                        <div className="w-full">
+                                            <label className="labels">Individual identification number</label>
+                                            <p>{userData.iin}</p>
+                                        </div>
+                                        <br />
+                                    </div>
+                                </div>
+
+                                {updateProfileError && <p className='text-red-500 text-sm'>{updateProfileError}</p>}
+
                             </div>
+                        </form>
+                    </div >
+                </div >
 
-                            {updateProfileError && <p className='text-red-500 text-sm'>{updateProfileError}</p>}
-
-                            <div className="button-section"><button className="ctaa-button" type="submit">Save Profile</button></div>
-                        </div>
-                    </form>
-                </div>
             </>
         )
     );

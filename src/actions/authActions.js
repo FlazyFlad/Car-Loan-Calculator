@@ -142,7 +142,7 @@ export const register = (userData) => {
 
 
 export const updateUser = (userData, accessToken) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         dispatch(updateUserRequest());
 
         try {
@@ -155,7 +155,8 @@ export const updateUser = (userData, accessToken) => {
                     },
                 }
             );
-
+            
+            dispatch(getUserDetails(getState().auth.access_token));
             dispatch(updateUserSuccess(response.data));
         } catch (error) {
             if (error.response) {
