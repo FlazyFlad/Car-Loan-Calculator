@@ -13,6 +13,7 @@ const CarCard = ({ filteredCars, currentPage, itemsPerPage, setCurrentPage, hand
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentCars = filteredCars.slice(indexOfFirstItem, indexOfLastItem);
+    const isLoggedIn = useSelector((state) => (state.auth.isLoggedIn));
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -39,19 +40,20 @@ const CarCard = ({ filteredCars, currentPage, itemsPerPage, setCurrentPage, hand
 
 
 
+                                {isLoggedIn && (
+                                    <div>
+                                        <FaBookmark className={`${isProductInFavorites(car.id) ? 'text-red-600' : 'text-gray-600'} hover:text-gray-800 cursor-pointer`}
+                                            onClick={() => {
+                                                const isFavorite = isProductInFavorites(car.id);
 
-                                <div>
-                                    <FaBookmark className={`${isProductInFavorites(car.id) ? 'text-gray-900' : 'text-gray-600'} hover:text-gray-800 cursor-pointer`}
-                                        onClick={() => {
-                                            const isFavorite = isProductInFavorites(car.id);
-
-                                            if (isFavorite) {
-                                                handleRemoveItem(car.id);
-                                            } else {
-                                                handleAddToFavorites(car.id);
-                                            }
-                                        }} />
-                                </div>
+                                                if (isFavorite) {
+                                                    handleRemoveItem(car.id);
+                                                } else {
+                                                    handleAddToFavorites(car.id);
+                                                }
+                                            }} />
+                                    </div>
+                                )}
 
 
 

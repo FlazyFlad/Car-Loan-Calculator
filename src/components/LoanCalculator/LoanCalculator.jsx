@@ -40,6 +40,8 @@ const LoanCalculator = () => {
     const favoriteItems = useSelector((state) => (state.favorite.favoriteItems));
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
     const accessToken = useSelector(state => state?.auth.access_token);
+    const [sortBy, setSortBy] = useState('');
+
     //const [rate, setRate] = useState(21);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -147,10 +149,26 @@ const LoanCalculator = () => {
         setFilteredCars(updatedFilteredCars, callback);
     };
 
+    const sortedProducts = useMemo(() => {
+        switch (sortBy) {
+            case 'descending':
+                return [...filteredCars].sort((a, b) => b.price - a.price);
+            case 'ascending':
+                return [...filteredCars].sort((a, b) => a.price - b.price);
+            case 'popularity':
+                return [...filteredCars].sort((a, b) => b.id - a.id);
+            default:
+                return filteredCars;
+        }
+    }, [sortBy, filteredCars]);
+
     const handleFilterPageChange = () => {
         setCurrentPage(1);
     };
 
+    const handleSortChange = (option) => {
+        setSortBy(option);
+    };
 
     const calculateLoanDetails = () => {
         const downPayment = carValue * 0.1;
@@ -277,18 +295,20 @@ const LoanCalculator = () => {
 
                             <div className="icons-section">
                                 <div className="left-icons">
-                                    <div className="s-nav">
-                                        <i class={`s-icon fa-solid fa-bars ${theme ? 'dark-text-color' : 'light-text-color'}`}></i>
+                                    <div className="sorting-dropdown">
+                                        <div className="menu-icon">
+                                            <i class={`s-icon fa-solid fa-bars ${theme ? 'dark-text-color' : 'light-text-color'}`}></i>
+                                        </div>
+                                        <div className={`dropdown-content dropdown-content${theme ? '-dark dark-theme' : '-light light-theme'}`}>
+                                            <div onClick={() => handleSortChange('descending')}>Descending Price</div>
+                                            <div onClick={() => handleSortChange('ascending')}>Ascending Price</div>
+                                            <div onClick={() => handleSortChange('popularity')}>By Popularity</div>
+                                            <div onClick={() => handleSortChange('relevancy')}>By Relevancy</div>
+                                        </div>
                                     </div>
-                                    {/* <div className={`dropdown-content dropdown-content${theme ? '-dark dark-section' : '-light light-section'}`}>
-                                                <div onClick={() => handleSortChange('descending')}>Descending Price</div>
-                                                <div onClick={() => handleSortChange('ascending')}>Ascending Price</div>
-                                                <div onClick={() => handleSortChange('popularity')}>By Popularity</div>
-                                                <div onClick={() => handleSortChange('relevancy')}>By Relevancy</div>
-                                            </div> */}
                                 </div>
                                 {isLoggedIn && (
-                                    <div className="right-icons">
+                                    <div className="right-icons" style={{ marginRight: "14%" }}>
                                         <div className="s-nav" style={{ marginRight: "5px" }}>
                                             <i onClick={(handleToggleFavoriteNav)} className={`s-icon fas fa-heart ${theme ? 'dark-text-color' : 'light-text-color'}`}></i>
                                             {favoriteItems.length > 0 &&
@@ -302,7 +322,7 @@ const LoanCalculator = () => {
 
                             <div className="flex bg-inherit flex-col gap-4 items-center lg:flex-row lg:gap-8 lg:items-start w-full">
                                 <FavoriteComponent favoriteItems={favoriteItems} handleRemoveItem={handleRemoveItem} />
-                                <CarCard filteredCars={filteredCars} currentPage={currentPage} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} handleAddToFavorites={handleAddToFavorites} handleRemoveItem={handleRemoveItem} isProductInFavorites={isProductInFavorites} />
+                                <CarCard filteredCars={sortedProducts} currentPage={currentPage} itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} handleAddToFavorites={handleAddToFavorites} handleRemoveItem={handleRemoveItem} isProductInFavorites={isProductInFavorites} />
                             </div>
                         </div>
                         <div className="sm:col-span-12 lg:col-span-2 bg-inherit">
